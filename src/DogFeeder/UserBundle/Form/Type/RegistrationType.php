@@ -9,6 +9,8 @@
 namespace DogFeeder\UserBundle\Form\Type;
 
 use DogFeeder\UserBundle\Form\Validator\Constraints\Length;
+use DogFeeder\UserBundle\Form\Validator\Constraints\NotBlank;
+use DogFeeder\UserBundle\Form\Validator\Constraints\OnlyAlphaNumeric;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -26,14 +28,16 @@ class RegistrationType extends AbstractType
     {
         $this->translator = $translator;
     }
-    /**
-     * @var Container
-     */
-    public $container;
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('username', TextType::class, array(
-            'constraints' => new Length($this->translator, array('min' => 3, 'max' => 64))
+            'constraints' => array(
+                new Length($this->translator, array('min' => 3, 'max' => 64)),
+                new NotBlank(),
+                new OnlyAlphaNumeric()
+            )
+
         ));
 
     }

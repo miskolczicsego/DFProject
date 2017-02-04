@@ -4,3 +4,8 @@ services:
         tags:
             - { name: form.type, alias: user_registration }
         arguments: ['@translator.default']
+    app.contains_alphanumeric_validator:
+        class: DogFeeder\UserBundle\Form\Validator\Constraints\OnlyAlphaNumericValidator
+        tags:
+            - { name: validator.constraint_validator }
+        arguments: ['@translator.default']

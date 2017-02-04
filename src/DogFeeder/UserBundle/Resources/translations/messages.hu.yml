@@ -1,2 +1,4 @@
-too_short_message: Túl rövid a szöveg. A szöveg hossza legalább [MIN] hosszú kell hogy legyen
-too_long_message: Túl hosszú a szöveg. A szöveg legfeljebb [MAX] karakter hosszú lehet
+too_short_message: Túl rövid a szöveg. A szöveg hossza legalább [MIN] hosszú kell hogy legyen.
+too_long_message: Túl hosszú a szöveg. A szöveg legfeljebb [MAX] karakter hosszú lehet.
+not_blank: A mező nem lehet üres.
+only_alphanumeric: A %string% helytelen. Csak betűket, és számokat adhat meg.

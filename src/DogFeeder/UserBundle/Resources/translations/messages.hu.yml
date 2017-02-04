@@ -1,0 +1,2 @@
+too_short_message: Túl rövid a szöveg. A szöveg hossza legalább [MIN] hosszú kell hogy legyen
+too_long_message: Túl hosszú a szöveg. A szöveg legfeljebb [MAX] karakter hosszú lehet

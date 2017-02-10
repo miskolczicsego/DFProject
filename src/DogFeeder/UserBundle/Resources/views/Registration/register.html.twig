@@ -1,0 +1,14 @@
+{% extends 'UserBundle::layout.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/user/css/register.css') }}" />
+{% endblock %}
+{% block title %}{{ 'registration.title' | trans }}{% endblock %}
+{% block body %}
+<div class="login-page">
+    <div class="form">
+        {{ form_start(form)}}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}

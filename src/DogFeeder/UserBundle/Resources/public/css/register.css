@@ -1,8 +1,13 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+@import url(https://fonts.googleapis.com/css?family=Sansita);
+@import url(https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Sansita);
+
+body {
+    font-family: "Gloria Hallelujah", cursive;
+}
 
 .login-page {
     width: 360px;
-    padding: 8% 0 0;
+    padding: 3% 0 0;
     margin: auto;
 }
 .form {
@@ -15,19 +20,29 @@
     text-align: center;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
+label{
+    font-family: 'Gloria Hallelujah', cursive;
+    font-size: large;
+}
+div.bg-danger {
+    background-color: indianred;
+    color: white;
+    margin: 10px;
+    font-family: 'Gloria Hallelujah', cursive;
+}
 .form input {
-    font-family: "Roboto", sans-serif;
+    font-family: 'Gloria Hallelujah', cursive;
     outline: 0;
-    background: #f2f2f2;
+    background: #d0cccc;
     width: 100%;
     border: 0;
-    margin: 0 0 15px;
-    padding: 15px;
+    margin: 0 0 10px;
+    padding: 10px;
     box-sizing: border-box;
     font-size: 14px;
 }
 .form button {
-    font-family: "Roboto", sans-serif;
+    font-family: 'Gloria Hallelujah', cursive;
     text-transform: uppercase;
     outline: 0;
     background: #4CAF50;
@@ -97,4 +112,17 @@ body {
     font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #8b8989;
+}
+::-moz-placeholder { /* Firefox 19+ */
+    color: #8b8989;
+}
+:-ms-input-placeholder { /* IE 10+ */
+    color: #8b8989;
+}
+:-moz-placeholder { /* Firefox 18- */
+    color: #8b8989;
 }

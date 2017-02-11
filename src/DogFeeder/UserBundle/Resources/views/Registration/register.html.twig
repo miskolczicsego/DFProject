@@ -3,12 +3,36 @@
     <link rel="stylesheet" href="{{ asset('bundles/user/css/register.css') }}" />
 {% endblock %}
 {% block title %}{{ 'registration.title' | trans }}{% endblock %}
+
+{% form_theme form '@User/Registration/custom_errors.html.twig' %}
+
 {% block body %}
-<div class="login-page">
-    <div class="form">
-        {{ form_start(form)}}
-        {{ form_widget(form) }}
-        {{ form_end(form) }}
+    <div class="login-page">
+        <div class="form">
+            {{ form_start(form)}}
+
+            {{ form_label(form.username) }}
+            {{ form_errors(form.username) }}
+            {{ form_widget(form.username, {'attr': {'placeholder': 'form.username' | trans } }) }}
+
+            {{ form_label(form.firstname) }}
+            {{ form_errors(form.firstname) }}
+            {{ form_widget(form.firstname, {'attr': {'placeholder': 'form.firstname' | trans} }) }}
+
+            {{ form_label(form.lastname) }}
+            {{ form_errors(form.lastname) }}
+            {{ form_widget(form.lastname, {'attr': {'placeholder': 'form.lastname' | trans} }) }}
+
+            {{ form_widget(form.plainPassword, {'attr': {'placeholder': 'form.password' | trans} }) }}
+            {{ form_errors(form.plainPassword) }}
+
+            {{ form_label(form.email) }}
+            {{ form_errors(form.email) }}
+            {{ form_widget(form.email, {'attr': {'placeholder': 'form.email' | trans} }) }}
+
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+
+        </div>
     </div>
-</div>
 {% endblock %}

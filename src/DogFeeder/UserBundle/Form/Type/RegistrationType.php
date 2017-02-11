@@ -8,15 +8,19 @@
 
 namespace DogFeeder\UserBundle\Form\Type;
 
+use DogFeeder\UserBundle\Entity\User;
 use DogFeeder\UserBundle\Form\Validator\Constraints\Length;
-use DogFeeder\UserBundle\Form\Validator\Constraints\NotBlank;
-use DogFeeder\UserBundle\Form\Validator\Constraints\OnlyAlphaNumeric;
+use DogFeeder\UserBundle\Form\Validator\Constraints\AlphaNumericUsername;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RegistrationType extends AbstractType
 {
@@ -35,27 +39,63 @@ class RegistrationType extends AbstractType
         $builder
             ->add('username', TextType::class, array(
                 'label' => 'form.username',
+                'required' => false,
                 'translation_domain' => 'messages',
                 'constraints' => array(
-                new Length($this->translator, array('min' => 3, 'max' => 64)),
-                new NotBlank(),
-                new OnlyAlphaNumeric()
-            )
+                    new NotBlank(),
+                    new Length($this->translator, array('min' => 3, 'max' => 64)),
+                    new AlphaNumericUsername()
+                )
+
         ))
-            ->add('registrate', SubmitType::class, array(
+             ->add('firstname', TextType::class, array(
+                'label' => 'form.firstname',
+                'translation_domain' => 'messages',
+                'required' => false
+            ))
+            ->add('lastname', TextType::class, array(
+                'label' => 'form.lastname',
+                'translation_domain' => 'messages',
+                'required' => false
+            ))
+            ->add('email', EmailType::class, array(
+                'label' => 'form.email',
+                'translation_domain' => 'messages',
+                'required' => false,
+                'constraints' => array(
+                    new NotBlank()
+                )
+            ))
+            ->add('plainPassword', RepeatedType::class, array(
+                'type' => PasswordType::class,
+                'constraints' => array(
+                    new NotBlank(),
+                    new Length($this->translator, array('min' => 3, 'max' => 20))
+                ),
+                'invalid_message' => 'form.error_message',
+                'required' => false,
+                'options' => array('attr' => array('class' => 'password-field')),
+                'first_options'  => array('label' => 'form.password', 'attr' => array('placeholder' => 'form.password')),
+                'second_options' => array('label' => 'form.repeatpassword', 'attr' => array('placeholder' => 'form.repeatpassword')),
+                'translation_domain' => 'messages',
+
+            ))
+            ->add('register', SubmitType::class, array(
                 'attr' => array('class' => 'save'),
-                'label' => 'form.registrate',
+                'label' => 'form.register',
                 'translation_domain' => 'messages'
         ));
 
     }
 
-    public function getParent()
+    public function configureOptions(OptionsResolver $resolver)
     {
-        return 'fos_user_registration';
+        $resolver->setDefaults(array(
+            'data_class' => User::class,
+        ));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'user_registration';
     }

@@ -2,3 +2,7 @@ user_register:
     resource: "@UserBundle/Resources/config/routing/registration.xml"
     prefix: /register
 
+user_login:
+    resource: "@UserBundle/Resources/config/routing/login.xml"
+    prefix: /login
+

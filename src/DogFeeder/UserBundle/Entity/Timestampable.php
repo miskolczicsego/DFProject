@@ -12,10 +12,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Timestampable abstract class to define create and update behavior
+ * Timestampable class to define create and update behavior
  *
  * @ORM\MappedSuperclass
- * @package Blog\ModelBundle\Entity
  */
 abstract class Timestampable
 {

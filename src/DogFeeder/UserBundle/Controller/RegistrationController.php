@@ -9,7 +9,7 @@
 namespace DogFeeder\UserBundle\Controller;
 
 use DogFeeder\UserBundle\Entity\User;
-use DogFeeder\UserBundle\Form\Type\RegistrationType;
+use DogFeeder\UserBundle\Form\Type\UserRegistrationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,9 +19,8 @@ class RegistrationController extends Controller
     public function registerAction(Request $request)
     {
         $user = new User();
-        $form = $this->createForm(RegistrationType::class, $user);
+        $form = $this->createForm(UserRegistrationType::class, $user);
         $form->handleRequest($request);
-
         $translator = $this->container->get('translator');
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $this->get('security.password_encoder')
@@ -36,10 +35,6 @@ class RegistrationController extends Controller
                 ->getFlashBag()
                 ->add('success', $translator->trans('registration_success'));
             ;
-
-
-            // ... do any other work - like sending them an email, etc
-            // maybe set a "flash" success message for the user
 
             return $this->redirectToRoute('user_registration_register');
         }

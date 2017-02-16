@@ -22,7 +22,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class RegistrationType extends AbstractType
+class UserRegistrationType extends AbstractType
 {
     /**
      * @var Translator
@@ -88,6 +88,7 @@ class RegistrationType extends AbstractType
 
     }
 
+    // todo kideríteni ez miért kell bele
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
@@ -95,6 +96,7 @@ class RegistrationType extends AbstractType
         ));
     }
 
+    //todo pontosan mire használjuk???
     public function getBlockPrefix()
     {
         return 'user_registration';

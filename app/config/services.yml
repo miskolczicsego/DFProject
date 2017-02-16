@@ -1,6 +1,6 @@
 services:
     user.form.registration:
-        class: DogFeeder\UserBundle\Form\Type\RegistrationType
+        class: DogFeeder\UserBundle\Form\Type\UserRegistrationType
         tags:
             - { name: form.type, alias: user_registration }
         arguments: ['@translator.default']

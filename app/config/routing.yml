@@ -1,8 +1,13 @@
 user_register:
     resource: "@UserBundle/Resources/config/routing/registration.xml"
-    prefix: /register
+    prefix: /
 
 user_login:
     resource: "@UserBundle/Resources/config/routing/login.xml"
-    prefix: /login
+    prefix: /
+
+home:
+    resource: "@HomeBundle/Resources/config/routing/home.xml"
+    prefix: /
+
 

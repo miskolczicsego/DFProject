@@ -36,7 +36,7 @@ class RegistrationController extends Controller
                 ->add('success', $translator->trans('registration_success'));
             ;
 
-            return $this->redirectToRoute('user_registration_register');
+            return $this->redirectToRoute('user_security_login');
         }
 
         return $this->render("@User/Registration/register.html.twig", array(

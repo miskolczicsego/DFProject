@@ -7,24 +7,23 @@ security:
         ROLE_SUPER_ADMIN: [ ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
 
     providers:
-        user:
-          entity: { class: UserBundle:User, property: username }
+         user:
+            entity:
+                class: UserBundle:User
+                property: username
 
     firewalls:
-         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
          frontend_area:
             pattern: ^/
             anonymous: ~
             provider: user
             form_login:
-                login_path: dogfeeder_user_security_login
-                check_path: dogfeeder_user_security_logincheck
+                login_path: user_security_login
+                check_path: user_security_logincheck
             logout:
-                path: dogfeeder_user_security_logout
-                target: dogfeeder_user_post_index
+                path: user_security_logout
+                target: user_registration_register
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/home, roles: ROLE_ADMIN }

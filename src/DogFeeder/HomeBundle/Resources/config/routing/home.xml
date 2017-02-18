@@ -4,8 +4,8 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="user_registration_register" path="/register" methods="GET POST">
-        <default key="_controller">UserBundle:Registration:register</default>
+    <route id="user_home" path="/home" methods="GET POST">
+        <default key="_controller">HomeBundle:Home:index</default>
     </route>
 
 </routes>

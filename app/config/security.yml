@@ -22,7 +22,7 @@ security:
                 check_path: user_security_logincheck
             logout:
                 path: user_security_logout
-                target: user_registration_register
+                target: home_home_index
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

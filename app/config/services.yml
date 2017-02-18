@@ -4,6 +4,12 @@ services:
         tags:
             - { name: form.type, alias: user_registration }
         arguments: ['@translator.default']
+
+    user.edit:
+            class: DogFeeder\UserBundle\Form\Type\UserType
+            tags:
+                - { name: form.type, alias: user_edit }
+            arguments: ['@translator.default']
     app.contains_alphanumeric_validator:
         class: DogFeeder\UserBundle\Form\Validator\Constraints\OnlyAlphaNumericValidator
         tags:

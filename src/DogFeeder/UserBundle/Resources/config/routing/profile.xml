@@ -4,12 +4,8 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="home_home_default" path="/" methods="GET POST">
-        <default key="_controller">HomeBundle:Home:default</default>
-    </route>
-
-    <route id="home_home_index" path="/home" methods="GET POST">
-        <default key="_controller">HomeBundle:Home:index</default>
+    <route id="user_user_edit" path="/edit" methods="GET POST">
+        <default key="_controller">UserBundle:User:edit</default>
     </route>
 
 </routes>

@@ -16,3 +16,12 @@ form:
   email: Email cím
   register: Regisztrálok
 registration_success: Sikeres regisztráció
+user_edit: Felhasználói adatok módosítása
+save: Mentés
+profile_modify_success: Az adatok módosítása sikeresen megtörtént
+please_sign_in: Kérlek jelentkezz be
+sign_in: Bejelentkezés
+email_address: Email cím
+password: Jelszó
+remember_me: Emlékezz rám!
+login_error: Nem jó a jelszó vagy a felhasználónév

@@ -10,4 +10,8 @@ home:
     resource: "@HomeBundle/Resources/config/routing/home.xml"
     prefix: /
 
+profile:
+    resource: "@UserBundle/Resources/config/routing/profile.xml"
+    prefix: /{id}
+
 

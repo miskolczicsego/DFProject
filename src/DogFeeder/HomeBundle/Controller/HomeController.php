@@ -13,10 +13,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class HomeController extends Controller
 {
+    public function defaultAction()
+    {
+        return $this->redirectToRoute('home_home_index');
+    }
+
     public function indexAction()
     {
         return $this->render("@Home/layout.html.twig",array(
-
         ));
     }
 }

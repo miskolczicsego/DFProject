@@ -11,7 +11,9 @@
         <script src="{{ asset('assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     </head>
     <body>
-        {% include '@User/Registration/success.html.twig' %}
+        {% include '@User/Common/success.html.twig' %}
+        {% include '@Home/Common/header.html.twig' %}
+
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

@@ -37,9 +37,31 @@ class UserRegistrationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+             ->add('firstname', TextType::class, array(
+                'label' => 'form.firstname',
+                'translation_domain' => 'messages',
+                 'attr' => array(
+                     'class' => 'form-control input-lg',
+                     'tabindex' => '1'
+                 ),
+                'required' => false
+            ))
+            ->add('lastname', TextType::class, array(
+                'label' => 'form.lastname',
+                'attr' => array(
+                    'class' => 'form-control input-lg',
+                    'tabindex' => '2'
+                ),
+                'translation_domain' => 'messages',
+                'required' => false
+            ))
             ->add('username', TextType::class, array(
                 'label' => 'form.username',
                 'required' => false,
+                'attr' => array(
+                    'class' => 'form-control input-lg',
+                    'tabindex' => '3'
+                ),
                 'translation_domain' => 'messages',
                 'constraints' => array(
                     new NotBlank(),
@@ -47,19 +69,13 @@ class UserRegistrationType extends AbstractType
                     new AlphaNumericUsername()
                 )
 
-        ))
-             ->add('firstname', TextType::class, array(
-                'label' => 'form.firstname',
-                'translation_domain' => 'messages',
-                'required' => false
-            ))
-            ->add('lastname', TextType::class, array(
-                'label' => 'form.lastname',
-                'translation_domain' => 'messages',
-                'required' => false
             ))
             ->add('email', EmailType::class, array(
                 'label' => 'form.email',
+                'attr' => array(
+                    'class' => 'form-control input-lg',
+                    'tabindex' => '4'
+                ),
                 'translation_domain' => 'messages',
                 'required' => false,
                 'constraints' => array(
@@ -74,14 +90,19 @@ class UserRegistrationType extends AbstractType
                 ),
                 'invalid_message' => 'form.error_message',
                 'required' => false,
-                'options' => array('attr' => array('class' => 'password-field')),
-                'first_options'  => array('label' => 'form.password', 'attr' => array('placeholder' => 'form.password')),
-                'second_options' => array('label' => 'form.repeatpassword', 'attr' => array('placeholder' => 'form.repeatpassword')),
-                'translation_domain' => 'messages',
-
+                'first_options' => array('attr' => array(
+                    'class' => 'form-control input-lg',
+                    'tabindex' => '5'
+                )),
+                'second_options' => array('attr' => array(
+                    'class' => 'form-control input-lg',
+                    'tabindex' => '6'
+                )),
             ))
             ->add('register', SubmitType::class, array(
-                'attr' => array('class' => 'save'),
+                'attr' => array(
+                    'class' => 'btn btn-primary btn-block btn-lg',
+                    'tabindex' => '7'),
                 'label' => 'form.register',
                 'translation_domain' => 'messages'
         ));

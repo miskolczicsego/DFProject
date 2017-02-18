@@ -5,10 +5,12 @@
 {% endblock %}
 
 {% block body %}
-    {% include '@User/Security/error.html.twig' %}
+    {% include '@User/Common/error.html.twig' %}
+    {# @TODO ezt itt ki lehetne tenni egy type-ba #}
     <div class="container">
         <form class="form-signin" action="{{ path('user_security_logincheck') }}" method="post">
             <h2 class="form-signin-heading">{{ 'please_sign_in' | trans }}</h2>
+            <hr class="colorgraph">
             <label for="username" class="sr-only">Username:</label>
             <input type="text" id="username" class="form-control" name="_username" value="{{ last_username }}"
                    placeholder="{{ 'form.username' | trans }}" required autofocus/>

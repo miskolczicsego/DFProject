@@ -12,6 +12,9 @@ home:
 
 profile:
     resource: "@UserBundle/Resources/config/routing/profile.xml"
-    prefix: /{id}
+    prefix: /
+feeder:
+    resource: "@FeederBundle/Resources/config/routing/feed.xml"
+    prefix: /
 
 

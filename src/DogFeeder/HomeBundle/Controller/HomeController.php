@@ -20,7 +20,9 @@ class HomeController extends Controller
 
     public function indexAction()
     {
+        $feedStats = $this->getDoctrine()->getRepository('FeederBundle:FeedStat')->findAll();
         return $this->render("@Home/layout.html.twig",array(
+            'feedStats' => $feedStats
         ));
     }
 }

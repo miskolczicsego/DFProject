@@ -17,7 +17,8 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new DogFeeder\UserBundle\UserBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
-            new DogFeeder\HomeBundle\HomeBundle()
+            new DogFeeder\HomeBundle\HomeBundle(),
+            new DogFeeder\FeederBundle\FeederBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

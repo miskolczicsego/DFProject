@@ -1,3 +1,21 @@
 <div class="container">
-
+    <table class="table table-bordered">
+        <thead>
+            <th>id</th>
+            <th>date</th>
+            <th>description</th>
+            <th>quantity</th>
+        </thead>
+        <tbody>
+        {% for stat in feedStats %}
+            <tr>
+                <td>{{ stat.id }}</td>
+                <td>{{ stat.createdAt | date}}</td>
+                <td>{{ stat.description }}</td>
+                <td>{{ stat.quantity }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('feeder_feed_index') }}">Feed</a>
 </div><!-- /.container -->

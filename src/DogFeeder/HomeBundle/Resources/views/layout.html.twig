@@ -1,14 +1,5 @@
 {% extends '::base.html.twig' %}
 
-{% block javascripts %}
-
-{% endblock %}
-
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('bundles/home/css/starter.css') }}" />
-    <link rel="stylesheet" href="{{ asset('bundles/home/css/carousel.css') }}" />
-{% endblock %}
-
 {% block body %}
 {% if not app.user %}
     {% include '@Home/AnonymousLayout/anonymLayout.html.twig' %}

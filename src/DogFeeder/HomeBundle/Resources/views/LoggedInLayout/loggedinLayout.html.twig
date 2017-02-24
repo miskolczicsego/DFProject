@@ -1,21 +1,44 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/home/css/starter.css') }}" />
+{% endblock %}
 <div class="container">
+    <h2>{{ 'stat_heading' | trans }}</h2>
+    {#TODO: Ezt a táblázatot itt rendbe kell rakni + a gombot#}
     <table class="table table-bordered">
         <thead>
-            <th>id</th>
-            <th>date</th>
-            <th>description</th>
-            <th>quantity</th>
+        {#TODO: nyelvi fájlokból jöjjön#}
+            <th>{{ 'date' | trans }}</th>
+            <th>{{ 'description' | trans }}</th>
+            <th>{{ 'quantity' | trans }}</th>
         </thead>
         <tbody>
-        {% for stat in feedStats %}
+        {% for stat in lastFiveFeedStats %}
             <tr>
-                <td>{{ stat.id }}</td>
-                <td>{{ stat.createdAt | date}}</td>
+                <td>{{ stat.createdAt | date("Y-m-d H:i:s")}}</td>
                 <td>{{ stat.description }}</td>
                 <td>{{ stat.quantity }}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-    <a href="{{ path('feeder_feed_index') }}">Feed</a>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-1">
+            <div class="form-group">
+                <label>Mennyiség</label>
+            </div>
+        </div>
+        <div class="col-xs-8 col-sm-6 col-md-1">
+            <div class="form-group">
+                <select class="form-control">
+                    <option>50</option>
+                    <option>100</option>
+                    <option>150</option>
+                    <option>200</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    {#TODO: ezt itt lehetne ajaxxal hívni meg egy onclick eseménnyel#}
+    <a href="{{ path('feeder_feed_index') }}" class="btn btn-default">{{ 'feed' | trans }}</a>
+
 </div><!-- /.container -->

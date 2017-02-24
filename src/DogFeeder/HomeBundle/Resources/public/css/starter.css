@@ -5,3 +5,14 @@ body {
     padding: 40px 15px;
     text-align: center;
 }
+.table {
+    width: 50%;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+.form-control {
+    width: 5%;
+}

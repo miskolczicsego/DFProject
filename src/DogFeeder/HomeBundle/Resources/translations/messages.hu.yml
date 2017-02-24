@@ -5,3 +5,9 @@ project_name: DFProject
 contact: Kapcsolat
 about: Rólunk
 home: Főoldal
+id: ID
+date: Dátum
+description: Leírás
+quantity: Mennyiség (g)
+stat_heading: Az elmúlt 5 etetés statisztikája:
+feed: Etetés

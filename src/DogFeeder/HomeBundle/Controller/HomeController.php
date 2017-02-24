@@ -20,9 +20,10 @@ class HomeController extends Controller
 
     public function indexAction()
     {
-        $feedStats = $this->getDoctrine()->getRepository('FeederBundle:FeedStat')->findAll();
+        // TODO: Ezt majd össze kell még kötni felhasználóval, vagy etetővel, mert így mindenkinél ugyanaz jelenik majd meg
+        $feedStats = $this->getDoctrine()->getRepository('FeederBundle:FeedStat')->getLastFiveFeedstat();
         return $this->render("@Home/layout.html.twig",array(
-            'feedStats' => $feedStats
+            'lastFiveFeedStats' => $feedStats
         ));
     }
 }

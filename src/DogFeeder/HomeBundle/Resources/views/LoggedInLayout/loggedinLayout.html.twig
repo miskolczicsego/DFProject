@@ -21,24 +21,15 @@
         {% endfor %}
         </tbody>
     </table>
+    {{ form_start(form, {'action': path('feeder_feed_index'), 'method': 'POST'}) }}
     <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-1">
-            <div class="form-group">
-                <label>Mennyiség</label>
-            </div>
+        <div class="col-xs-6 col-sm-6 col-md-1">
+            {{ form_label(form.quantity) }}
         </div>
-        <div class="col-xs-8 col-sm-6 col-md-1">
-            <div class="form-group">
-                <select class="form-control">
-                    <option>50</option>
-                    <option>100</option>
-                    <option>150</option>
-                    <option>200</option>
-                </select>
-            </div>
+        <div class="col-xs-8 col-sm-6 col-md-2">
+            {{ form_widget(form.quantity, {'attr': {'class': 'form-control'}}) }}
         </div>
     </div>
-    {#TODO: ezt itt lehetne ajaxxal hívni meg egy onclick eseménnyel#}
-    <a href="{{ path('feeder_feed_index') }}" class="btn btn-default">{{ 'feed' | trans }}</a>
+    {{ form_end(form) }}
 
 </div><!-- /.container -->

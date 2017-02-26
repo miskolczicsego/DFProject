@@ -9,6 +9,8 @@
 namespace DogFeeder\FeederBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 use DogFeeder\UserBundle\Entity\Timestampable;
 use Symfony\Component\Validator\Constraints as Assert;
 use DogFeeder\UserBundle\Form\Validator\Constraints as UsernameValidator;
@@ -32,9 +34,33 @@ class FeedStat extends Timestampable
     private $description;
 
     /**
+     * Many feedstat have One Feeder.
+     * @ManyToOne(targetEntity="Feeder", inversedBy="feedstats")
+     * @JoinColumn(name="feeder_id", referencedColumnName="id")
+     */
+    private $feeder;
+    /**
      * @ORM\Column(type="integer")
      */
     private $quantity;
+
+    /**
+     * @return mixed
+     */
+    public function getFeeder()
+    {
+        return $this->feeder;
+    }
+
+    /**
+     * @param mixed $feeder
+     */
+    public function setFeeder($feeder)
+    {
+        $this->feeder = $feeder;
+    }
+
+
     /**
      * @return mixed
      */

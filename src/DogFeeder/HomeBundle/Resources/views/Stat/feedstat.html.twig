@@ -1,0 +1,52 @@
+<h2>{{ 'stat_heading' | trans }}</h2>
+{#TODO: Ezt a táblázatot itt rendbe kell rakni + a gombot#}
+<table class="table table-bordered">
+    <thead>
+    {#TODO: nyelvi fájlokból jöjjön#}
+    <th>{{ 'date' | trans }}</th>
+    <th>{{ 'description' | trans }}</th>
+    <th>{{ 'quantity' | trans }}</th>
+    </thead>
+    <tbody>
+    {% if lastFiveFeedStatsByUserId is not empty %}
+        {% for stat in lastFiveFeedStatsByUserId %}
+            <tr class="row-{{ stat.id }}">
+                <td>{{ stat.createdAt | date("Y-m-d H:i:s")}}</td>
+                <td>{{ stat.description }}</td>
+                <td>{{ stat.quantity }}</td>
+                <td><button class="btn btn-danger delete-button" id="{{ stat.id }}" onclick="deleteStat(this)">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button></td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            {{ 'feed_not_happened_yet' | trans }}
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+{{ form_start(form, {'action': path('feeder_feed_index'), 'method': 'POST'}) }}
+<div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-1">
+        {{ form_label(form.quantity) }}
+    </div>
+    <div class="col-xs-8 col-sm-6 col-md-2">
+        {{ form_widget(form.quantity, {'attr': {'class': 'form-control'}}) }}
+    </div>
+</div>
+{{ form_end(form) }}
+
+<script>
+    function deleteStat(el) {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "{{ path('feeder_feedstat_remove') }}",
+            data: {"id": el.id},
+            beforeSend:function(){
+                el.closest('tr').remove();
+            }
+        })
+    }
+</script>

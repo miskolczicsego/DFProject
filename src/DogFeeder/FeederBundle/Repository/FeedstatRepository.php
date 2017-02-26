@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
 
 class FeedstatRepository extends EntityRepository
 {
-    public function getLastFiveFeedstat()
+    public function getLastFiveFeedstatByUserId()
     {
         $qb = $this->getEntityManager()->
             createQueryBuilder()

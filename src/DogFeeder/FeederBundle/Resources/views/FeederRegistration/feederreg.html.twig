@@ -1,0 +1,6 @@
+{% extends '@Home/layout.html.twig' %}
+{% block body %}
+    {{ form_start(form, {'action': path('feeder_feeder_add'), 'method': 'POST'}) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% endblock %}

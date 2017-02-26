@@ -1,35 +1,11 @@
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('bundles/home/css/starter.css') }}" />
-{% endblock %}
 <div class="container">
-    <h2>{{ 'stat_heading' | trans }}</h2>
-    {#TODO: Ezt a táblázatot itt rendbe kell rakni + a gombot#}
-    <table class="table table-bordered">
-        <thead>
-        {#TODO: nyelvi fájlokból jöjjön#}
-            <th>{{ 'date' | trans }}</th>
-            <th>{{ 'description' | trans }}</th>
-            <th>{{ 'quantity' | trans }}</th>
-        </thead>
-        <tbody>
-        {% for stat in lastFiveFeedStats %}
-            <tr>
-                <td>{{ stat.createdAt | date("Y-m-d H:i:s")}}</td>
-                <td>{{ stat.description }}</td>
-                <td>{{ stat.quantity }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    {{ form_start(form, {'action': path('feeder_feed_index'), 'method': 'POST'}) }}
-    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-1">
-            {{ form_label(form.quantity) }}
-        </div>
-        <div class="col-xs-8 col-sm-6 col-md-2">
-            {{ form_widget(form.quantity, {'attr': {'class': 'form-control'}}) }}
-        </div>
-    </div>
-    {{ form_end(form) }}
-
+    {% if renderStatTable %}
+        {% include('@Home/Stat/feedstat.html.twig') %}
+    {% else %}
+        <h2 class="no-feeder">
+            {{ 'noFeederMessage' | trans }}
+        </h2>
+        <span class="glyphicon glyphicon-plus-sign"></span>
+        <a href="{{ path('feeder_feeder_add') }}">{{ 'linktoaddfeeder' | trans}}</a>
+    {% endif %}
 </div><!-- /.container -->

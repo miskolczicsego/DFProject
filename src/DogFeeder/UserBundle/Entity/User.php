@@ -8,13 +8,19 @@
 
 namespace DogFeeder\UserBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\JoinTable;
+use DogFeeder\FeederBundle\Entity\Feeder;
+use DogFeeder\FeederBundle\Entity\FeedStat;
+use DogFeeder\FeederBundle\Repository\FeedstatRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use DogFeeder\UserBundle\Form\Validator\Constraints as UsernameValidator;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="DogFeeder\UserBundle\Repository\UserRepository")
  * @ORM\Table(name="user")
  */
 class User extends Timestampable implements UserInterface, \Serializable
@@ -24,39 +30,65 @@ class User extends Timestampable implements UserInterface, \Serializable
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    private $id;
 
 
     /**
      * @ORM\Column(type="string", length=64, unique=true)
      */
-    protected $username;
+    private $username;
 
 
     /**
      * @ORM\Column(type="string", length=64)
      */
-    protected $firstname;
+    private $firstname;
 
 
     /**
      * @ORM\Column(type="string", length=64)
      */
-    protected $lastname;
-
+    private $lastname;
 
     /**
      * @ORM\Column(type="string", length=64, unique=true)
      */
-    protected $email;
+    private $email;
 
+    /**
+     * One user has many feeders
+     *
+     * @ORM\OneToMany(targetEntity="DogFeeder\FeederBundle\Entity\Feeder", mappedBy="user")
+     */
+    private $feeders;
 
-    protected $plainPassword;
+    private $plainPassword;
 
     /**
      * @ORM\Column(type="string", length=4069)
      */
-    protected $password;
+    private $password;
+
+    public function __construct()
+    {
+        $this->feeders = new ArrayCollection();
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getFeeders()
+    {
+        return $this->feeders;
+    }
+
+    /**
+     * @param Feeder $feeder
+     */
+    public function addFeeder($feeder)
+    {
+        $this->feeders[] = $feeder;
+    }
 
     /**
      * @return mixed

@@ -1,5 +1,5 @@
 body {
-    padding-top: 50px;
+    margin-top: 50px !important;
 }
 .starter-template {
     padding: 40px 15px;
@@ -15,4 +15,7 @@ th {
 }
 .form-control {
     width: 100%;
+}
+.glyphicon glyphicon-plus-sign {
+    padding: 10px;
 }

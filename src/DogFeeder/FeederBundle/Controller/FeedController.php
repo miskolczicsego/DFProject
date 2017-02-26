@@ -23,7 +23,9 @@ class FeedController extends Controller
         $output = array();
         exec("/var/www/html/DFProject/src/DogFeeder/FeederBundle/Resources/files/hello.py", $output);
         $stat = new FeedStat();
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
+
         if(isset($output[0]) && $output[0] === "Hello, World!" )
         {
             $stat->setQuantity($data['quantity']);
@@ -38,4 +40,5 @@ class FeedController extends Controller
         $em->flush();
         return $this->redirectToRoute('home_home_index');
     }
+
 }

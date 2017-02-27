@@ -1,4 +1,4 @@
-<h2>{{ 'stat_heading' | trans }}</h2>
+<h2 class="stat-header">{{ 'stat_heading' | trans }}</h2>
 {#TODO: Ezt a táblázatot itt rendbe kell rakni + a gombot#}
 <table class="table table-bordered">
     <thead>
@@ -41,11 +41,11 @@
     function deleteStat(el) {
         $.ajax({
             type: "POST",
-            dataType: "json",
+            dataType: "html",
             url: "{{ path('feeder_feedstat_remove') }}",
             data: {"id": el.id},
-            beforeSend:function(){
-                el.closest('tr').remove();
+            success: function(data) {
+                $('.stat-header').parent().html(data);
             }
         })
     }

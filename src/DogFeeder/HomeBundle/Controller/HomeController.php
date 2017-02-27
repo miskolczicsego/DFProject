@@ -21,26 +21,29 @@ class HomeController extends Controller
 
     public function indexAction(Request $request)
     {
+        if($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') ){
             $feeder = $this->getDoctrine()->getRepository('FeederBundle:Feeder')->findOneBy(array(
                 'user' => $this->getUser()->getId()
             ));
-
-            if (isset($feeder)) {
-                $manualFeedForm = $this->createForm('DogFeeder\FeederBundle\Form\Type\ManualFeedType');
-                $manualFeedForm->handleRequest($request);
-                // TODO: Ezt majd össze kell még kötni felhasználóval, vagy etetővel, mert így mindenkinél ugyanaz jelenik majd meg
-                $feedStats = $this
-                    ->getDoctrine()
-                    ->getRepository('FeederBundle:FeedStat')
-                    ->getLastFiveFeedstatByUserId();
-                return $this->render("@Home/layout.html.twig",array(
-                    'renderStatTable' => true,
-                    'lastFiveFeedStatsByUserId' => $feedStats,
-                    'form' => $manualFeedForm->createView()
-                ));
-            } else {
-                return $this->render("@Home/layout.html.twig");
-            }
+        }
+        if (isset($feeder)) {
+            $manualFeedForm = $this->createForm('DogFeeder\FeederBundle\Form\Type\ManualFeedType');
+            $manualFeedForm->handleRequest($request);
+            // TODO: Ezt majd össze kell még kötni felhasználóval, vagy etetővel, mert így mindenkinél ugyanaz jelenik majd meg
+            $feedStats = $this
+                ->getDoctrine()
+                ->getRepository('FeederBundle:FeedStat')
+                ->getLastFiveFeedstatByUserId();
+            return $this->render("@Home/layout.html.twig",array(
+                'renderStatTable' => true,
+                'lastFiveFeedStatsByUserId' => $feedStats,
+                'form' => $manualFeedForm->createView()
+            ));
+        } else {
+            return $this->render("@Home/layout.html.twig",array(
+                'renderStatTable' => false,
+            ));
+        }
 
 
     }

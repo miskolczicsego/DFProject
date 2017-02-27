@@ -10,6 +10,7 @@ namespace DogFeeder\FeederBundle\Controller;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class FeedstatController extends Controller
@@ -24,6 +25,11 @@ class FeedstatController extends Controller
         $em->remove($stat);
         $em->flush();
 
-        return $this->redirectToRoute('home_home_default');
+        $lastfeedstat = $this->getDoctrine()->getRepository('FeederBundle:FeedStat')->getLastFiveFeedstatByUserId();
+        $form = $this->createForm('DogFeeder\FeederBundle\Form\Type\ManualFeedType');
+        return $this->render('@Home/Stat/feedstat.html.twig', array(
+            'lastFiveFeedStatsByUserId' => $lastfeedstat,
+            'form' => $form->createView()
+        ));
     }
 }

@@ -18,7 +18,8 @@ GPIO.setmode(GPIO.BOARD)
 # We need our pin to use the GPIO digital output function, so we just
 # tell it to designate this pin for OUTPUT.
 pin_number = 11
-GPIO.setup(pin_number, GPIO.OUT)
+setup = GPIO.setup(pin_number, GPIO.OUT)
+print("setup")
 
 # Now we can use PWM on pin 11.  It's software PWM, so don't expect perfect
 # results.  Linux is a multitasking OS so other processes could interrupt

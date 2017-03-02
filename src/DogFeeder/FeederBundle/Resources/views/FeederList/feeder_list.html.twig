@@ -1,0 +1,9 @@
+{% extends '@Home/layout.html.twig' %}
+
+{% block body %}
+{% for feeder in feedersToUser %}
+    <li><a href="#show">{{ feeder.name}}</a></li>
+{% endfor %}
+    <span class="glyphicon glyphicon-plus-sign"></span>
+    <a href="{{ path('feeder_feeder_add') }}">{{ 'linktoaddfeeder' | trans}}</a>
+{% endblock %}

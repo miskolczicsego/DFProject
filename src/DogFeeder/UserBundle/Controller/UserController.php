@@ -21,6 +21,9 @@ class UserController extends Controller
         $editForm->handleRequest($request);
         $translator = $this->container->get('translator');
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $password = $this->get('security.password_encoder')
+                ->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
             $this->getDoctrine()->getManager()->flush();
 
             $request->getSession()
@@ -33,9 +36,5 @@ class UserController extends Controller
             '@User/Profile/edit.html.twig',
             array('user' => $user, 'edit_form' => $editForm->createView())
         );
-    }
-    public function __toString()
-    {
-        return 'My string version of UserCategory'; // if you have a name property you can do $this->getName();
     }
 }

@@ -12,6 +12,10 @@
         <default key="_controller">FeederBundle:Feeder:add</default>
     </route>
 
+    <route id="feeder_feeder_list" path="/home/feeders" methods="GET POST">
+        <default key="_controller">FeederBundle:Feeder:list</default>
+    </route>
+
     <route id="feeder_feedstat_remove" path="/home/remove_stat" methods="GET POST">
         <default key="_controller">FeederBundle:Feedstat:remove</default>
     </route>

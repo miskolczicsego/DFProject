@@ -19,6 +19,7 @@ class FeederController extends Controller
     {
         $feederRegistrationForm = $this->createForm('DogFeeder\FeederBundle\Form\Type\FeederType');
         $feederRegistrationForm->handleRequest($request);
+        $translator = $this->container->get('translator');
 
         if($feederRegistrationForm->isSubmitted()) {
             $feeder = new Feeder();
@@ -29,11 +30,29 @@ class FeederController extends Controller
             $em->persist($feeder);
             $em->flush();
 
-            $this->redirect('home_home_index');
+            $request->getSession()
+                ->getFlashBag()
+                ->add('success', $translator->trans('add_feeder_success'));
+            ;
+
+            return $this->redirectToRoute('home_home_index');
         }
 
         return $this->render("@Feeder/FeederRegistration/feederreg.html.twig", array(
             'form' => $feederRegistrationForm->createView()
+        ));
+    }
+
+    public function listAction()
+    {
+        $user = $this->getUser();
+        $feedersToUser = $this->getDoctrine()->getRepository('FeederBundle:Feeder')->findBy(
+            array(
+                'user' => $user
+            )
+        );
+        return $this->render('@Feeder/FeederList/feeder_list.html.twig', array(
+            'feedersToUser' => $feedersToUser
         ));
     }
 }

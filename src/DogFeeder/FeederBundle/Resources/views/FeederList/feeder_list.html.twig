@@ -1,9 +1,32 @@
-{% extends '@Home/layout.html.twig' %}
-
-{% block body %}
+<div class="container">
+    <h2 class="feeders-header">{{ 'feeder_list' | trans }}</h2>
+    <table class="table table-feeder table-bordered">
+        <thead>
+        <th>{{ 'createdAt' | trans }}</th>
+        <th>{{ 'name' | trans }}</th>
+        <th></th>
+        </thead>
+        <tbody>
 {% for feeder in feedersToUser %}
-    <li><a href="#show">{{ feeder.name}}</a></li>
+            <tr class="row-{{ feeder.id }}">
+                <td>{{ feeder.createdAt | date("Y-m-d H:i:s")}}</td>
+                <td>{{ feeder.name }}</td>
+                <td class="buttons-td">
+                    <a href="{{ path('feeder_feeder_edit', {'feederId': feeder.id}) }}">
+                        <button class="btn btn-default edit-button" id="feeder[{{ feeder.id }}]" >
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </button>
+                    </a>
+                    <a href="{{ path('feeder_feeder_delete', {'feederId': feeder.id}) }}">
+                        <button class="btn btn-danger delete-button" id="{{ feeder.id }}" onclick="feederDelete(this)">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </a>
+                </td>
+            </tr>
 {% endfor %}
+        </tbody>
+    </table>
     <span class="glyphicon glyphicon-plus-sign"></span>
     <a href="{{ path('feeder_feeder_add') }}">{{ 'linktoaddfeeder' | trans}}</a>
-{% endblock %}
+</div>

@@ -41,7 +41,7 @@ class Feeder extends Timestampable
 
     /**
      * One Feeder has Many feedstat.
-     * @OneToMany(targetEntity="DogFeeder\FeederBundle\Entity\FeedStat", mappedBy="feeder")
+     * @OneToMany(targetEntity="DogFeeder\FeederBundle\Entity\FeedStat", mappedBy="feeder", cascade={"remove"})
      */
     private $feedstats;
 
@@ -111,6 +111,14 @@ class Feeder extends Timestampable
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function __toString()
+    {
+        return $this->getName();
     }
 
 

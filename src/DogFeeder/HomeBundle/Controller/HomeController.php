@@ -9,6 +9,7 @@
 namespace DogFeeder\HomeBundle\Controller;
 
 
+use DogFeeder\FeederBundle\Form\Type\ManualFeedType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -27,16 +28,16 @@ class HomeController extends Controller
             ));
         }
         if (isset($feeder)) {
-            $manualFeedForm = $this->createForm('DogFeeder\FeederBundle\Form\Type\ManualFeedType');
+            $manualFeedForm = $this->createForm(new ManualFeedType($this->getUser()->getId()));
             $manualFeedForm->handleRequest($request);
             // TODO: Ezt majd össze kell még kötni felhasználóval, vagy etetővel, mert így mindenkinél ugyanaz jelenik majd meg
             $feedStats = $this
                 ->getDoctrine()
                 ->getRepository('FeederBundle:FeedStat')
-                ->getLastFiveFeedstatByUserId();
+                ->getLastFiveFeedstat($this->getUser()->getId());
             return $this->render("@Home/layout.html.twig",array(
                 'renderStatTable' => true,
-                'lastFiveFeedStatsByUserId' => $feedStats,
+                'getLastFiveFeedstat' => $feedStats,
                 'form' => $manualFeedForm->createView()
             ));
         } else {

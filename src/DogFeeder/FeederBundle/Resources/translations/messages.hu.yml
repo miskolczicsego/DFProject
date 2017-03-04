@@ -1,3 +1,7 @@
 form:
   quantity: Mennyiség
 feed_not_happened_yet: Nincs statisztika mert még nem történt etetés
+createdAt: Létrehozva
+name: Etető neve
+feeder_list: Etetők listája
+feeder_modify_success: Az etető módosítása sikeresen megtörtént

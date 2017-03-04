@@ -12,15 +12,19 @@ use Doctrine\ORM\EntityRepository;
 
 class FeedstatRepository extends EntityRepository
 {
-    public function getLastFiveFeedstatByUserId()
+    public function getLastFiveFeedstat($id)
     {
-        $qb = $this->getEntityManager()->
-            createQueryBuilder()
-            ->select('fs')
-            ->from('FeederBundle:FeedStat', 'fs')
-            ->orderBy('fs.createdAt', 'DESC')
-            ->setMaxResults(5);
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+            "SELECT fs.id, fs.createdAt, fs.description, fs.quantity, f.name
+             FROM FeederBundle:FeedStat fs
+             JOIN FeederBundle:Feeder f
+             WITH fs.feeder = f.id
+             AND f.user = {$id}
+             ORDER BY fs.createdAt DESC
+             "
+        )->setMaxResults(5)->getArrayResult();
 
-        return $qb->getQuery()->getArrayResult();
+        return $query;
     }
 }

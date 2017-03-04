@@ -7,14 +7,16 @@
     <th>{{ 'date' | trans }}</th>
     <th>{{ 'description' | trans }}</th>
     <th>{{ 'quantity' | trans }}</th>
+    <th>{{ 'feeder' | trans }}</th>
     </thead>
     <tbody>
-    {% if lastFiveFeedStatsByUserId is not empty %}
-        {% for stat in lastFiveFeedStatsByUserId %}
+    {% if getLastFiveFeedstat is not empty %}
+        {% for stat in getLastFiveFeedstat %}
             <tr class="row-{{ stat.id }}">
                 <td>{{ stat.createdAt | date("Y-m-d H:i:s")}}</td>
                 <td>{{ stat.description }}</td>
                 <td>{{ stat.quantity }}</td>
+                <td>{{ stat.name }}</td>
                 <td><button class="btn btn-danger delete-button" id="{{ stat.id }}" onclick="deleteStat(this)">
                         <span class="glyphicon glyphicon-trash"></span>
                     </button></td>
@@ -35,6 +37,12 @@
     <div class="col-xs-8 col-sm-6 col-md-2">
         {{ form_widget(form.quantity, {'attr': {'class': 'form-control'}}) }}
     </div>
+    <div class="col-xs-6 col-sm-6 col-md-1">
+        {{ form_label(form.feeder) }}
+    </div>
+    <div class="col-xs-8 col-sm-6 col-md-2">
+        {{ form_widget(form.feeder, {'attr': {'class': 'form-control'}}) }}
+    </div>
 </div>
 {{ form_end(form) }}
 
@@ -42,6 +50,7 @@
     function deleteStat(el) {
         $.ajax({
             type: "POST",
+            cache: false,
             dataType: "html",
             url: "{{ path('feeder_feedstat_remove') }}",
             data: {"id": el.id},

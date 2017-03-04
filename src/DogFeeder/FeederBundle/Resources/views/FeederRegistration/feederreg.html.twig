@@ -1,4 +1,4 @@
-{% extends '@Home/layout.html.twig' %}
+{% extends '@Feeder/feederLayout.html.twig' %}
 {% block body %}
     {{ form_start(form, {'action': path('feeder_feeder_add'), 'method': 'POST'}) }}
     {{ form_widget(form) }}

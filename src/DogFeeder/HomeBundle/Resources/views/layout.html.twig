@@ -1,13 +1,11 @@
 {% extends '::base.html.twig' %}
-
 {% block body %}
-{% if not app.user %}
-    {% include '@Home/AnonymousLayout/anonymLayout.html.twig' %}
-{% else %}
-    {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('bundles/home/css/starter.css') }}" />
-    {% endblock %}
-    {% include '@Home/LoggedInLayout/loggedinLayout.html.twig' %}
-{% endif %}
-
+        {% if not app.user %}
+            {% include '@Home/AnonymousLayout/anonymLayout.html.twig' %}
+        {% else %}
+            {% block stylesheets %}
+                <link rel="stylesheet" href="{{ asset('bundles/home/css/starter.css') }}" />
+            {% endblock %}
+                {% include '@Home/LoggedInLayout/loggedinLayout.html.twig' %}
+        {% endif %}
 {% endblock %}

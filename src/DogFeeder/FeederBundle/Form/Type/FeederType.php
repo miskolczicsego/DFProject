@@ -8,10 +8,12 @@
 
 namespace DogFeeder\FeederBundle\Form\Type;
 
+use DogFeeder\FeederBundle\Entity\Feeder;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FeederType extends AbstractType
 {
@@ -20,6 +22,19 @@ class FeederType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('save', SubmitType::class);
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => Feeder::class,
+        ));
+    }
+
+    //todo pontosan mire használjuk???
+    public function getBlockPrefix()
+    {
+        return 'feeder_add';
     }
 
 }

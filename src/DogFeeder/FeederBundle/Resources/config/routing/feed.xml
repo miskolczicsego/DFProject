@@ -16,6 +16,14 @@
         <default key="_controller">FeederBundle:Feeder:list</default>
     </route>
 
+    <route id="feeder_feeder_edit" path="/home/feeder/edit/{feederId}" methods="GET POST">
+        <default key="_controller">FeederBundle:Feeder:edit</default>
+    </route>
+
+    <route id="feeder_feeder_delete" path="/home/feeder/delete/{feederId}" methods="GET POST">
+        <default key="_controller">FeederBundle:Feeder:delete</default>
+    </route>
+
     <route id="feeder_feedstat_remove" path="/home/remove_stat" methods="GET POST">
         <default key="_controller">FeederBundle:Feedstat:remove</default>
     </route>

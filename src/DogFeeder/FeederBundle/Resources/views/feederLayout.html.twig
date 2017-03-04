@@ -1,0 +1,7 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('bundles/home/css/starter.css') }}" />
+        {% endblock %}
+        {% include '@Feeder/FeederList/feeder_list.html.twig' %}
+{% endblock %}

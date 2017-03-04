@@ -1,5 +1,5 @@
 body {
-    margin-top: 50px !important;
+    margin: 50px !important;
 }
 .starter-template {
     padding: 40px 15px;
@@ -9,6 +9,13 @@ body {
     width: 50%;
 }
 
+.table-feeder {
+    width: 50% !important;
+}
+
+.buttons-td {
+    width: 101px;
+}
 th {
     background-color: #4CAF50;
     color: white;

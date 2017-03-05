@@ -2,7 +2,7 @@ too_short_message: Túl rövid a szöveg. A szöveg hossza legalább [MIN] karat
 too_long_message: Túl hosszú a szöveg. A szöveg legfeljebb [MAX] karakter hosszú lehet.
 not_blank: A mező nem lehet üres.
 username_alphanumeric: A '%string%' felhasználónév helytelen. Csak betűket, és számokat adhat meg.
-password_alphanumeric: A '%string%' jelszó hely telen. Csak betűket, és számokat adhat meg.
+password_alphanumeric: A '%string%' jelszó helytelen. Csak betűket, és számokat adhat meg.
 
 registration:
   title: Regisztráció

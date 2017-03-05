@@ -117,7 +117,7 @@ class UserRegistrationType extends AbstractType
         ));
     }
 
-    //todo pontosan mire használjuk???
+    //ez lesz a prefix a form egyes mezőinek a nevénél pl
     public function getBlockPrefix()
     {
         return 'user_registration';

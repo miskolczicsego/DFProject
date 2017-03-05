@@ -1,0 +1,7 @@
+{% extends '::base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/home/css/starter.css') }}" />
+{% endblock %}
+{% block body %}
+    {% include '@Config/config/config.html.twig' %}
+{% endblock %}

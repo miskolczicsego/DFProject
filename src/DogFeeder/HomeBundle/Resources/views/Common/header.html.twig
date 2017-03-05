@@ -6,6 +6,7 @@
             <li><a href="#contact">{{ 'contact' | trans }}</a></li>
             {% if app.user %}
                 <li><a href="{{ path('feeder_feeder_list') }}">{{ 'feeders' | trans }}</a></li>
+                <li><a href="{{ path('config_config_index') }}">{{ 'config' | trans }}</a></li>
                 <li><a href="{{ path('user_user_edit', {'id': app.user.id}) }}">{{ app.user.username }}</a></li>
                 <li><a href="{{ path('user_security_logout') }}">{{ 'logout' | trans }}</a></li>
             {% else %}

@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new DogFeeder\UserBundle\UserBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new DogFeeder\HomeBundle\HomeBundle(),
+            new DogFeeder\ConfigBundle\ConfigBundle(),
             new DogFeeder\FeederBundle\FeederBundle()
         );
 

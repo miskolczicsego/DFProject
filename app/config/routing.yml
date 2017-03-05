@@ -17,5 +17,9 @@ feeder:
     resource: "@FeederBundle/Resources/config/routing/feed.xml"
     prefix: /
 
+config:
+    resource: "@ConfigBundle/Resources/config/routing/config.xml"
+    prefix: /
+
 
 

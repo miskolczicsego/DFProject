@@ -11,7 +11,7 @@ services:
             - { name: form.type, alias: user_edit }
         arguments: ['@translator.default']
 
-    config:
+    config.type:
         class: DogFeeder\ConfigBundle\Form\Type\ConfigType
         tags:
             - { name: form.type, alias: config_add }

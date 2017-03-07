@@ -13,19 +13,24 @@ use DogFeeder\ConfigBundle\Entity\Config;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class ConfigController extends Controller
+class SettingController extends Controller
 {
     public function indexAction()
     {
-        // TODO: itt még ki kell szedni az inputba azt ami db ben van
+        $data = array();
+        $config = $this->get('config');
+        $data['stat_limit'] = $config->get('stat_limit');
+
         $form = $this->createForm('DogFeeder\ConfigBundle\Form\Type\ConfigType');
         return $this->render('@Config/config/config.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'data' => $data
         ));
     }
 
     public function saveAction(Request $request)
     {
+        // TODO variálni kicsit hogy ezt is a service csinálja
         $translator = $this->get('translator');
         $form = $this->createForm('DogFeeder\ConfigBundle\Form\Type\ConfigType');
         $form->handleRequest($request);
@@ -35,7 +40,7 @@ class ConfigController extends Controller
         foreach ($data as $key => $value) {
 
             $setting = $this->getDoctrine()->getRepository('ConfigBundle:Config')->findOneBy(array(
-                'config' => $key
+                'key' => $key
             ));
             $setting->setValue($value);
             $em->persist($setting);

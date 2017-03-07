@@ -9,7 +9,7 @@ id: ID
 date: Dátum
 description: Leírás
 quantity: Mennyiség (g)
-stat_heading: Az elmúlt 5 etetés statisztikája:
+stat_heading: Az elmúlt etetések statisztikája:
 feed: Etetés
 noFeederMessage: Nincs etető hozzáadva.
 linktoaddfeeder: Etető hozzáadása

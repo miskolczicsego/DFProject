@@ -4,7 +4,8 @@
     <h2>{{ 'config' | trans }}</h2>
     <div class="container">
         {{ form_start(form, {'action': path('config_config_save'), 'method': 'POST'})  }}
-        {{ form_widget(form) }}
+        {{ form_label(form.stat_limit) }}
+        {{ form_widget(form.stat_limit, {'value': data.stat_limit.value })  }}
         <button type="submit">{{ 'save'|trans }}</button>
         {{ form_end(form) }}
     </div>

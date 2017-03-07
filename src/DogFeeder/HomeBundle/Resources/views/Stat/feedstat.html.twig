@@ -10,8 +10,8 @@
     <th>{{ 'feeder' | trans }}</th>
     </thead>
     <tbody>
-    {% if getLastFiveFeedstat is not empty %}
-        {% for stat in getLastFiveFeedstat %}
+    {% if getLastFeedstatsByUserId is not empty %}
+        {% for stat in getLastFeedstatsByUserId %}
             <tr class="row-{{ stat.id }}">
                 <td>{{ stat.createdAt | date("Y-m-d H:i:s")}}</td>
                 <td>{{ stat.description }}</td>

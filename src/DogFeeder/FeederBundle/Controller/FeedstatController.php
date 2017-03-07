@@ -26,10 +26,15 @@ class FeedstatController extends Controller
         $em->remove($stat);
         $em->flush();
 
-        $lastfeedstat = $this->getDoctrine()->getRepository('FeederBundle:FeedStat')->getLastFiveFeedstat($this->getUser()->getId());
+        $config = $this->get('config');
+        $statLimit = $config->get('stat_limit')->getValue();
+
+        $lastfeedstat = $this->getDoctrine()->getRepository('FeederBundle:FeedStat')->getLastFeedstatsByUserId($this->getUser()->getId(), $statLimit);
+        //TODO itt talán megoldható lenne hogy a formot ne adjuk vissza csak a táblázatot mert a form mindig ua
+        // TODO ehhez a formot külön kell kezelni egy twigben és csak a táblázatot renderelni egy másikból
         $form = $this->createForm(new ManualFeedType($this->getUser()->getId()));
         return $this->render('@Home/Stat/feedstat.html.twig', array(
-            'getLastFiveFeedstat' => $lastfeedstat,
+            'getLastFeedstatsByUserId' => $lastfeedstat,
             'form' => $form->createView()
         ));
     }

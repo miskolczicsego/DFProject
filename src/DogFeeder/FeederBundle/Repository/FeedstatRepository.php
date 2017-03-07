@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
 
 class FeedstatRepository extends EntityRepository
 {
-    public function getLastFiveFeedstat($id)
+    public function getLastFeedstatsByUserId($id, $limit)
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
@@ -23,7 +23,7 @@ class FeedstatRepository extends EntityRepository
              AND f.user = {$id}
              ORDER BY fs.createdAt DESC
              "
-        )->setMaxResults(5)->getArrayResult();
+        )->setMaxResults($limit)->getArrayResult();
 
         return $query;
     }

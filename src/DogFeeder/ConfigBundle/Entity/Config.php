@@ -24,9 +24,9 @@ class Config
     private $id;
 
     /**
-     * @ORM\Column(name="config", type="string", length=64, unique=true)
+     * @ORM\Column(name="key", type="string", length=64, unique=true)
      */
-    private $config;
+    private $key;
 
     /**
      * @ORM\Column(name="value", type="string", length=64)
@@ -44,15 +44,15 @@ class Config
     /**
      * @return mixed
      */
-    public function getConfig()
+    public function getKey()
     {
-        return $this->config;
+        return $this->key;
     }
 
     /**
      * @param mixed $key
      */
-    public function setConfig($key)
+    public function setKey($key)
     {
         $this->key = $key;
     }

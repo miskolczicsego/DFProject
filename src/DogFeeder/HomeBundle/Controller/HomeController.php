@@ -31,13 +31,15 @@ class HomeController extends Controller
             $manualFeedForm = $this->createForm(new ManualFeedType($this->getUser()->getId()));
             $manualFeedForm->handleRequest($request);
             // TODO: Ezt majd össze kell még kötni felhasználóval, vagy etetővel, mert így mindenkinél ugyanaz jelenik majd meg
+            $config = $this->get('config');
+            $statLimit = $config->get('stat_limit')->getValue();
             $feedStats = $this
                 ->getDoctrine()
                 ->getRepository('FeederBundle:FeedStat')
-                ->getLastFiveFeedstat($this->getUser()->getId());
+                ->getLastFeedstatsByUserId($this->getUser()->getId(), $statLimit);
             return $this->render("@Home/layout.html.twig",array(
                 'renderStatTable' => true,
-                'getLastFiveFeedstat' => $feedStats,
+                'getLastFeedstatsByUserId' => $feedStats,
                 'form' => $manualFeedForm->createView()
             ));
         } else {

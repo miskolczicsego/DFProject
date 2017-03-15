@@ -8,6 +8,7 @@
 
 namespace DogFeeder\UserBundle\Controller;
 
+use DogFeeder\ConfigBundle\Entity\Config;
 use DogFeeder\UserBundle\Entity\User;
 use DogFeeder\UserBundle\Form\Type\UserRegistrationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -26,7 +27,7 @@ class RegistrationController extends Controller
             $password = $this->get('security.password_encoder')
                 ->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
-
+            $this->createDefaultConfigToUser($user);
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
@@ -42,5 +43,11 @@ class RegistrationController extends Controller
         return $this->render("@User/Registration/register.html.twig", array(
            'form' => $form->createView()
         ));
+    }
+
+    public function createDefaultConfigToUser($user)
+    {
+        $config = $this->container->get('config');
+        $config->set('stat_limit', '5', $user);
     }
 }

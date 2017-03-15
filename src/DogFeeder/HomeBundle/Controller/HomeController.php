@@ -32,7 +32,7 @@ class HomeController extends Controller
             $manualFeedForm->handleRequest($request);
             // TODO: Ezt majd össze kell még kötni felhasználóval, vagy etetővel, mert így mindenkinél ugyanaz jelenik majd meg
             $config = $this->get('config');
-            $statLimit = $config->get('stat_limit')->getValue();
+            $statLimit = $config->get('stat_limit', $this->getUser()->getId())->getValue();
             $feedStats = $this
                 ->getDoctrine()
                 ->getRepository('FeederBundle:FeedStat')

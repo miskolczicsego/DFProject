@@ -27,7 +27,7 @@ class FeedstatController extends Controller
         $em->flush();
 
         $config = $this->get('config');
-        $statLimit = $config->get('stat_limit')->getValue();
+        $statLimit = $config->get('stat_limit', $this->getUser()->getId())->getValue();
 
         $lastfeedstat = $this->getDoctrine()->getRepository('FeederBundle:FeedStat')->getLastFeedstatsByUserId($this->getUser()->getId(), $statLimit);
         //TODO itt talán megoldható lenne hogy a formot ne adjuk vissza csak a táblázatot mert a form mindig ua

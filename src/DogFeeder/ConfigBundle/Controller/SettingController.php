@@ -19,7 +19,7 @@ class SettingController extends Controller
     {
         $data = array();
         $config = $this->get('config');
-        $data['stat_limit'] = $config->get('stat_limit');
+        $data['stat_limit'] = $config->get('stat_limit', $this->getUser()->getId());
 
         $form = $this->createForm('DogFeeder\ConfigBundle\Form\Type\ConfigType');
         return $this->render('@Config/config/config.html.twig', array(
@@ -40,7 +40,8 @@ class SettingController extends Controller
         foreach ($data as $key => $value) {
 
             $setting = $this->getDoctrine()->getRepository('ConfigBundle:Config')->findOneBy(array(
-                'key' => $key
+                'key' => $key,
+                'user' => $this->getUser()->getId()
             ));
             $setting->setValue($value);
             $em->persist($setting);

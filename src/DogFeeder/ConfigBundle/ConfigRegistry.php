@@ -27,10 +27,11 @@ class ConfigRegistry
      *
      * @param $key
      */
-    public function get($key)
+    public function get($key, $userId)
     {
         $config =  $this->getConfigRepository()->findOneBy(array(
-           'key' => $key
+            'key' => $key,
+            'user' => $userId
         ));
 
         if ($config === null) {
@@ -40,26 +41,40 @@ class ConfigRegistry
         return $config;
     }
 
-    public function getConfig($key) {
-        return $this->get($key);
-    }
-
     /**
      * Set new config
      *
      * @param $key
      * @param $value
      */
-    public function set($key, $value)
+    public function set($key, $value, $user)
     {
         $config = new Config();
         $config->setKey($key);
         $config->setValue($value);
+        $config->setUser($user);
 
         $this->em->persist($config);
         $this->em->flush();
     }
 
+    /**
+     * Update config
+     *
+     * @param $key
+     * @param $value
+     */
+    public function update($key, $value)
+    {
+        $config = $this->getConfigRepository()->findOneBy(array(
+            'key' => $key
+        ));
+
+        $config->setKey($key);
+        $config->setValue($value);
+        $this->em->persist($config);
+        $this->em->flush();
+    }
     public function getConfigRepository()
     {
         return $this->em->getRepository('ConfigBundle:Config');

@@ -14,6 +14,10 @@ security:
 
     firewalls:
          frontend_area:
+            remember_me:
+              secret: '%secret%'
+              lifetime: 604800
+              path:
             pattern: ^/
             anonymous: ~
             provider: user

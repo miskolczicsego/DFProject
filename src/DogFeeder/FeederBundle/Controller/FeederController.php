@@ -22,9 +22,9 @@ class FeederController extends Controller
         $feederRegistrationForm->handleRequest($request);
         $translator = $this->container->get('translator');
         $data = $feederRegistrationForm->getData();
+        // TODO: valami validációt rakni kéne ide
         if($feederRegistrationForm->isSubmitted()) {
             $feeder = new Feeder();
-
             $em = $this->getDoctrine()->getManager();
             $feeder->setUser($this->getUser());
             $feeder->setName($data->getName());

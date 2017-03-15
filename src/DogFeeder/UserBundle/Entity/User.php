@@ -12,6 +12,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\OneToMany;
+use DogFeeder\ConfigBundle\Entity\Config;
 use DogFeeder\FeederBundle\Entity\Feeder;
 use DogFeeder\FeederBundle\Entity\FeedStat;
 use DogFeeder\FeederBundle\Repository\FeedstatRepository;
@@ -65,13 +68,38 @@ class User extends Timestampable implements UserInterface, \Serializable
     private $plainPassword;
 
     /**
+     * One User has Many Config.
+     *
+     * @OneToMany(targetEntity="DogFeeder\ConfigBundle\Entity\Config", mappedBy="user")
+     */
+    private $configs;
+
+    /**
+     * @return mixed
+     */
+
+    /**
      * @ORM\Column(type="string", length=4069)
      */
     private $password;
 
     public function __construct()
     {
+        $this->configs = new ArrayCollection();
         $this->feeders = new ArrayCollection();
+    }
+
+    public function getConfigs()
+    {
+        return $this->configs;
+    }
+
+    /**
+     * @param Config $configs
+     */
+    public function addConfig($config)
+    {
+        $this->configs[] = $config;
     }
 
     /**

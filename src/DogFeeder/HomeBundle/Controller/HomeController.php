@@ -30,7 +30,6 @@ class HomeController extends Controller
         if (isset($feeder)) {
             $manualFeedForm = $this->createForm(new ManualFeedType($this->getUser()->getId()));
             $manualFeedForm->handleRequest($request);
-            // TODO: Ezt majd össze kell még kötni felhasználóval, vagy etetővel, mert így mindenkinél ugyanaz jelenik majd meg
             $config = $this->get('config');
             $statLimit = $config->get('stat_limit', $this->getUser()->getId())->getValue();
             $feedStats = $this

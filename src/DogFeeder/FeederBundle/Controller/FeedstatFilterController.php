@@ -23,19 +23,22 @@ class FeedstatFilterController extends Controller
     {
         $feederName = $request->get('name');
 
+        $optionValue = $request->get('value');
 
         $config = $this->get('config');
         $statLimit = $config->get('stat_limit', $this->getUser()->getId())->getValue();
+        if ($optionValue != false) {
 
-        $filteredStats = $this->getDoctrine()->getManager()->getRepository('FeederBundle:FeedStat')->findStatsByFeeder($feederName, $statLimit);
-        //TODO itt talán megoldható lenne hogy a formot ne adjuk vissza csak a táblázatot mert a form mindig ua
-        // TODO ehhez a formot külön kell kezelni egy twigben és csak a táblázatot renderelni egy másikból
-        $form = $this->createForm(new ManualFeedType($this->getUser()->getId()));
-        $filterForm = $this->createForm(new FilterType());
-        return $this->render('@Home/Stat/feedstat.html.twig', array(
-            'getLastFeedstatsByUserId' => $filteredStats,
-            'form' => $form->createView(),
-            'filterForm' => $filterForm->createView()
+            $filteredStats = $this->getDoctrine()->getManager()->getRepository('FeederBundle:FeedStat')->findStatsByFeeder($feederName, $statLimit);
+            return $this->render('@Feeder/FeedstatTable/feedstat_table.html.twig', array(
+                'getLastFeedstatsByUserId' => $filteredStats
+            ));
+        }
+
+        $allStats = $this->getDoctrine()->getManager()->getRepository('FeederBundle:FeedStat')->getLastFeedstatsByUserId($this->getUser()->getId(), $statLimit);
+        return $this->render('@Feeder/FeedstatTable/feedstat_table.html.twig', array(
+            'getLastFeedstatsByUserId' => $allStats
         ));
+
     }
 }

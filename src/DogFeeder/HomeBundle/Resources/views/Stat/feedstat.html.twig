@@ -4,41 +4,16 @@
 {#TODO: Ez alapján hozzá lehetne fűzni mindig egy sort a táblához. #}
 <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-2">
-        {{ form_widget(filterForm.filters, {
+        {{ form_widget(filterForm.feeder, {
             'attr': {
                 'class': 'form-control'
             }
         }) }}
     </div>
 </div>
-<table class="table table-hover">
-    <thead>
-    <th>{{ 'date' | trans }}</th>
-    <th>{{ 'description' | trans }}</th>
-    <th>{{ 'quantity' | trans }}</th>
-    <th>{{ 'feeder' | trans }}</th>
-    <th></th>
-    </thead>
-    <tbody>
-    {% if getLastFeedstatsByUserId is not empty %}
-        {% for stat in getLastFeedstatsByUserId %}
-            <tr class="row-{{ stat.id }}">
-                <td>{{ stat.createdAt | date("Y-m-d H:i:s")}}</td>
-                <td>{{ stat.description }}</td>
-                <td>{{ stat.quantity }}</td>
-                <td>{{ stat.name }}</td>
-                <td><button class="btn btn-danger delete-button" id="{{ stat.id }}" onclick="deleteStat(this)">
-                        <span class="glyphicon glyphicon-trash"></span>
-                    </button></td>
-            </tr>
-        {% endfor %}
-    {% else %}
-        <tr>
-            {{ 'feed_not_happened_yet' | trans }}
-        </tr>
-    {% endif %}
-    </tbody>
-</table>
+
+    {% include '@Feeder/FeedstatTable/feedstat_table.html.twig' %}
+
 {{ form_start(form, {'action': path('feeder_feed_index'), 'method': 'POST'}) }}
 <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-1">
@@ -65,22 +40,23 @@
             url: "{{ path('feeder_feedstat_remove') }}",
             data: {"id": el.id},
             success: function(data) {
-                $('.stat-header').parent().html(data);
+                $('.table').html(data);
             }
         })
     }
 
-    $('#filter_filters').change(function() {
-        var selectedText = $('#filter_filters option:selected').text();
+    $('#filter_feeder   ').change(function() {
+        var selectedText = $('#filter_feeder option:selected').text();
+        var selectedValue = $('#filter_feeder option:selected').val();
 
         $.ajax({
             type: "GET",
             cache: false,
             dataType: "html",
             url: "{{ path('feeder_feedstatfilter_filter') }}",
-            data: {"name": selectedText},
+            data: {"name": selectedText, "value": selectedValue},
             success: function(data) {
-                $('.stat-header').parent().html(data)
+                $('.table').html(data)
             }
         })
     })

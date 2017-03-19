@@ -20,20 +20,10 @@ use Symfony\Component\Security\Core\SecurityContext;
 
 class FilterType extends AbstractType
 {
-//    /**
-//     * @var EntityManager
-//     */
-//    public $em;
-//
-//    public function __construct($em)
-//    {
-//        $this->em = $em;
-//    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('filters', EntityType::class, array(
+            ->add('feeder', EntityType::class, array(
                 'class' => 'DogFeeder\FeederBundle\Entity\Feeder',
                 'empty_value' => 'Mind',
                 'label' => 'Statisztika szűrése etetőre: '

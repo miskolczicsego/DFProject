@@ -1,0 +1,28 @@
+<table class="table table-hover">
+    <thead>
+    <th>{{ 'date' | trans }}</th>
+    <th>{{ 'description' | trans }}</th>
+    <th>{{ 'quantity' | trans }}</th>
+    <th>{{ 'feeder' | trans }}</th>
+    <th></th>
+    </thead>
+    <tbody>
+    {% if getLastFeedstatsByUserId is not empty %}
+        {% for stat in getLastFeedstatsByUserId %}
+            <tr class="row-{{ stat.id }}">
+                <td>{{ stat.createdAt | date("Y-m-d H:i:s")}}</td>
+                <td>{{ stat.description }}</td>
+                <td>{{ stat.quantity }}</td>
+                <td>{{ stat.name }}</td>
+                <td><button class="btn btn-danger delete-button" id="{{ stat.id }}" onclick="deleteStat(this)">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button></td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            {{ 'feed_not_happened_yet' | trans }}
+        </tr>
+    {% endif %}
+    </tbody>
+</table>

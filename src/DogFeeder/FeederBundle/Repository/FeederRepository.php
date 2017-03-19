@@ -10,6 +10,7 @@ namespace DogFeeder\FeederBundle\Repository;
 
 
 use Doctrine\ORM\EntityRepository;
+use DogFeeder\FeederBundle\Entity\Feeder;
 
 class FeederRepository extends EntityRepository
 {
@@ -23,6 +24,22 @@ class FeederRepository extends EntityRepository
             ->setParameter(1, $id);
         return $qb->getQuery()->getArrayResult();
     }
+
+    public function getChoices()
+    {
+        $feeders = $this->createQueryBuilder('f')
+            ->getQuery()
+            ->getResult();
+
+        $result = [];
+        /** @var Feeder $f */
+        foreach ($feeders as $feeder) {
+            $result[$feeder->getId()] = $feeder->getName();
+        }
+
+        return $result;
+    }
+
     private function getQueryBuilder()
     {
         $em = $this->getEntityManager();

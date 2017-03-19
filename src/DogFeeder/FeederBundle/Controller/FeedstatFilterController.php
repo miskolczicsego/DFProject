@@ -2,43 +2,40 @@
 /**
  * Created by PhpStorm.
  * User: miskolczicsego
- * Date: 2017.02.26.
- * Time: 16:15
+ * Date: 2017.03.18.
+ * Time: 19:44
  */
 
 namespace DogFeeder\FeederBundle\Controller;
 
 
+use Doctrine\ORM\EntityManager;
 use DogFeeder\FeederBundle\Form\Type\FilterType;
 use DogFeeder\FeederBundle\Form\Type\ManualFeedType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-class FeedstatController extends Controller
+class FeedstatFilterController extends Controller
 {
-    public function removeAction(Request $request)
+
+    public function filterAction(Request $request)
     {
-        $statId = $request->request->get('id');
-        $em = $this->getDoctrine()->getManager();
-        $stat = $em->getRepository('FeederBundle:FeedStat')->findOneBy(array(
-           'id' => $statId
-        ));
-        $em->remove($stat);
-        $em->flush();
+        $feederName = $request->get('name');
+
 
         $config = $this->get('config');
         $statLimit = $config->get('stat_limit', $this->getUser()->getId())->getValue();
 
-        $lastfeedstat = $this->getDoctrine()->getRepository('FeederBundle:FeedStat')->getLastFeedstatsByUserId($this->getUser()->getId(), $statLimit);
+        $filteredStats = $this->getDoctrine()->getManager()->getRepository('FeederBundle:FeedStat')->findStatsByFeeder($feederName, $statLimit);
         //TODO itt talán megoldható lenne hogy a formot ne adjuk vissza csak a táblázatot mert a form mindig ua
         // TODO ehhez a formot külön kell kezelni egy twigben és csak a táblázatot renderelni egy másikból
         $form = $this->createForm(new ManualFeedType($this->getUser()->getId()));
-        $formFilter = $this->createForm(new FilterType());
+        $filterForm = $this->createForm(new FilterType());
         return $this->render('@Home/Stat/feedstat.html.twig', array(
-            'getLastFeedstatsByUserId' => $lastfeedstat,
+            'getLastFeedstatsByUserId' => $filteredStats,
             'form' => $form->createView(),
-            'filterForm' => $formFilter ->createView()
+            'filterForm' => $filterForm->createView()
         ));
     }
 }

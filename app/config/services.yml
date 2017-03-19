@@ -17,6 +17,12 @@ services:
             - { name: form.type, alias: config_add }
         arguments: ['@translator.default']
 
+    filter.type:
+        class: DogFeeder\FeederBundle\Form\Type\FilterType
+        tags:
+            - { name: form.type, alias: feedstat_filter }
+        arguments: ['@doctrine.orm.entity_manager']
+
     app.contains_alphanumeric_validator:
         class: DogFeeder\UserBundle\Form\Validator\Constraints\OnlyAlphaNumericValidator
         tags:

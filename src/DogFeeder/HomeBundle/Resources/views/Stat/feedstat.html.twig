@@ -2,12 +2,22 @@
 {#TODO: Ezt a táblázatot itt rendbe kell rakni + a gombot#}
 {#TODO: esetleg jöhetne az etetés is ajaxxal. Meghívná az etető kontroller. Az visszatér az adatokkal.#}
 {#TODO: Ez alapján hozzá lehetne fűzni mindig egy sort a táblához. #}
-<table class="table table-bordered">
+<div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-2">
+        {{ form_widget(filterForm.filters, {
+            'attr': {
+                'class': 'form-control'
+            }
+        }) }}
+    </div>
+</div>
+<table class="table table-hover">
     <thead>
     <th>{{ 'date' | trans }}</th>
     <th>{{ 'description' | trans }}</th>
     <th>{{ 'quantity' | trans }}</th>
     <th>{{ 'feeder' | trans }}</th>
+    <th></th>
     </thead>
     <tbody>
     {% if getLastFeedstatsByUserId is not empty %}
@@ -59,4 +69,19 @@
             }
         })
     }
+
+    $('#filter_filters').change(function() {
+        var selectedText = $('#filter_filters option:selected').text();
+
+        $.ajax({
+            type: "GET",
+            cache: false,
+            dataType: "html",
+            url: "{{ path('feeder_feedstatfilter_filter') }}",
+            data: {"name": selectedText},
+            success: function(data) {
+                $('.stat-header').parent().html(data)
+            }
+        })
+    })
 </script>

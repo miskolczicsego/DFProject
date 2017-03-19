@@ -16,7 +16,7 @@ use DogFeeder\UserBundle\Entity\Timestampable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="DogFeeder\FeederBundle\Repository\FeederRepository")
  * @ORM\Table(name="feeder")
  */
 class Feeder extends Timestampable

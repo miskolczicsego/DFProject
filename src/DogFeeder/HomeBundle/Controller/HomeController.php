@@ -9,9 +9,11 @@
 namespace DogFeeder\HomeBundle\Controller;
 
 
+use DogFeeder\FeederBundle\Form\Type\FilterType;
 use DogFeeder\FeederBundle\Form\Type\ManualFeedType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Translation\Tests\Dumper\FileDumperTest;
 
 class HomeController extends Controller
 {
@@ -29,6 +31,7 @@ class HomeController extends Controller
         }
         if (isset($feeder)) {
             $manualFeedForm = $this->createForm(new ManualFeedType($this->getUser()->getId()));
+            $statFilterForm = $this->createForm(new FilterType());
             $manualFeedForm->handleRequest($request);
             $config = $this->get('config');
             $statLimit = $config->get('stat_limit', $this->getUser()->getId())->getValue();
@@ -39,7 +42,8 @@ class HomeController extends Controller
             return $this->render("@Home/layout.html.twig",array(
                 'renderStatTable' => true,
                 'getLastFeedstatsByUserId' => $feedStats,
-                'form' => $manualFeedForm->createView()
+                'form' => $manualFeedForm->createView(),
+                'filterForm' => $statFilterForm->createView()
             ));
         } else {
             return $this->render("@Home/layout.html.twig",array(

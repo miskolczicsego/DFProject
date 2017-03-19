@@ -27,4 +27,18 @@ class FeedstatRepository extends EntityRepository
 
         return $query;
     }
+
+    public function findStatsByFeeder($feederName, $statLimit)
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+            "SELECT fs.id, fs.createdAt, fs.description, fs.quantity, f.name
+             FROM FeederBundle:FeedStat fs
+             JOIN FeederBundle:Feeder f
+             WHERE f.name = '" . $feederName . "'
+             AND fs.feeder = f.id
+             ORDER BY fs.createdAt DESC"
+        )->setMaxResults($statLimit)->getArrayResult();
+        return $query;
+    }
 }

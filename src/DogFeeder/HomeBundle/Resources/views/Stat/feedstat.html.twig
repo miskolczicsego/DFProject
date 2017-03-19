@@ -53,7 +53,7 @@
             type: "GET",
             cache: false,
             dataType: "html",
-            url: "{{ path('feeder_feedstatfilter_filter') }}",
+            url: "{{ path('feeder_feedstat_filter') }}",
             data: {"name": selectedText, "value": selectedValue},
             success: function(data) {
                 $('.table').html(data)

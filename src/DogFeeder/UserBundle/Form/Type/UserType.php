@@ -109,7 +109,7 @@ class UserType extends AbstractType
             ->add('save', SubmitType::class, array(
                 'label' => 'save',
                 'attr' => array(
-                    'class' => 'form-control input-lg',
+                    'class' => 'form-control input-lg btn btn-primary',
                     'tabindex' => '7'
                 ),
                 'translation_domain' => 'messages'
@@ -118,7 +118,7 @@ class UserType extends AbstractType
                 'label' => 'cancel',
                 'attr' => array(
                     'onclick' => 'window.location.href="/"',
-                    'class' => 'form-control input-lg',
+                    'class' => 'form-control input-lg btn btn-danger',
                     'tabindex' => '8'
                 ),
                 'translation_domain' => 'messages'

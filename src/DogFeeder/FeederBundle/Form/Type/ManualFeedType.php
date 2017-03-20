@@ -15,14 +15,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class ManualFeedType extends AbstractType
 {
-    private $userId;
+    private $securityToken;
 
-    public function __construct($userId)
+    public function __construct(TokenStorage $securityToken)
     {
-        $this->userId = $userId;
+        $this->securityToken = $securityToken;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -40,7 +41,7 @@ class ManualFeedType extends AbstractType
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('f')
                               ->where('f.user=:id')
-                              ->setParameter('id', $this->userId)
+                              ->setParameter('id', $this->securityToken->getToken()->getUser()->getId())
                         ;
                 }
             ))

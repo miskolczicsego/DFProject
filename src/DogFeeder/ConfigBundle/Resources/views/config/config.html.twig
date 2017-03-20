@@ -1,8 +1,9 @@
 {% extends '@Config/layout.html.twig' %}
+{% block title %}{{ 'setting_title' | trans }}{% endblock %}
 {% block body %}
     {#{% form_theme form '@User/Common/custom_errors.html.twig' %}#}
     <h2>{{ 'config' | trans }}</h2>
-    <div class="container">
+    <div class="col-xs-6 col-sm-6 col-md-2">
         {{ form_start(form, {
             'action': path('config_config_save'),
             'method': 'POST'
@@ -16,7 +17,9 @@
             }
         }
         ) }}
-        <button type="submit">{{ 'save'|trans }}</button>
+        <button type="submit" class="btn btn-primary">{{ 'save'|trans }}</button>
         {{ form_end(form) }}
+
     </div>
+
 {% endblock %}

@@ -1,9 +1,9 @@
 <h2 class="stat-header">{{ 'stat_heading' | trans }}</h2>
-{#TODO: Ezt a táblázatot itt rendbe kell rakni + a gombot#}
 {#TODO: esetleg jöhetne az etetés is ajaxxal. Meghívná az etető kontroller. Az visszatér az adatokkal.#}
 {#TODO: Ez alapján hozzá lehetne fűzni mindig egy sort a táblához. #}
 <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-2">
+        {{ form_label(filterForm.feeder) }}
         {{ form_widget(filterForm.feeder, {
             'attr': {
                 'class': 'form-control'
@@ -19,14 +19,25 @@
     <div class="col-xs-6 col-sm-6 col-md-1">
         {{ form_label(form.quantity) }}
     </div>
+
     <div class="col-xs-8 col-sm-6 col-md-2">
-        {{ form_widget(form.quantity, {'attr': {'class': 'form-control'}}) }}
+        {{ form_widget(form.quantity, {
+            'attr': {
+                'class': 'form-control'
+            }
+        }) }}
     </div>
+
     <div class="col-xs-6 col-sm-6 col-md-1">
         {{ form_label(form.feeder) }}
     </div>
+
     <div class="col-xs-8 col-sm-6 col-md-2">
-        {{ form_widget(form.feeder, {'attr': {'class': 'form-control'}}) }}
+        {{ form_widget(form.feeder, {
+            'attr': {
+                'class': 'form-control'
+            }
+        }) }}
     </div>
 </div>
 {{ form_end(form) }}

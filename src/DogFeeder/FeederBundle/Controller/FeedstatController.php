@@ -31,8 +31,6 @@ class FeedstatController extends Controller
         $statLimit = $config->get('stat_limit', $this->getUser()->getId())->getValue();
 
         $lastfeedstat = $this->getDoctrine()->getRepository('FeederBundle:FeedStat')->getLastFeedstatsByUserId($this->getUser()->getId(), $statLimit);
-        $form = $this->createForm(new ManualFeedType($this->getUser()->getId()));
-        $formFilter = $this->createForm(new FilterType());
         return $this->render('@Feeder/FeedstatTable/feedstat_table.html.twig', array(
             'getLastFeedstatsByUserId' => $lastfeedstat,
         ));

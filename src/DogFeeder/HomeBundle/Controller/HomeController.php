@@ -24,24 +24,16 @@ class HomeController extends Controller
 
     public function indexAction(Request $request)
     {
-        if($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') ){
-            $feeder = $this->getDoctrine()->getRepository('FeederBundle:Feeder')->findOneBy(array(
-                'user' => $this->getUser()->getId()
-            ));
-        }
-        if (isset($feeder)) {
-            $manualFeedForm = $this->createForm(new ManualFeedType($this->getUser()->getId()));
-            $statFilterForm = $this->createForm(new FilterType());
-            $manualFeedForm->handleRequest($request);
-            $config = $this->get('config');
-            $statLimit = $config->get('stat_limit', $this->getUser()->getId())->getValue();
-            $feedStats = $this
-                ->getDoctrine()
-                ->getRepository('FeederBundle:FeedStat')
-                ->getLastFeedstatsByUserId($this->getUser()->getId(), $statLimit);
+        if ($this->isFeederBelongsToUser()) {
+            $manualFeedForm = $this->createForm($this->get('manualfeed.type'));
+            $statFilterForm = $this->createForm($this->get('filter.type'));
+            $userId = $this->getUser()->getId();
+            $statLimit = $this->get('config')->get('stat_limit', $userId)->getValue();
+            $feedStatsToUser = $this->getLastFeedstatsToCurrentUser($statLimit);
+
             return $this->render("@Home/layout.html.twig",array(
                 'renderStatTable' => true,
-                'getLastFeedstatsByUserId' => $feedStats,
+                'getLastFeedstatsByUserId' => $feedStatsToUser,
                 'form' => $manualFeedForm->createView(),
                 'filterForm' => $statFilterForm->createView()
             ));
@@ -50,7 +42,20 @@ class HomeController extends Controller
                 'renderStatTable' => false,
             ));
         }
+    }
 
+    public function getLastFeedstatsToCurrentUser($limit)
+    {
+        return $this->getDoctrine()->getRepository('FeederBundle:FeedStat')->getLastFeedstatsByUserId($this->getUser()->getId(), $limit);
+    }
 
+    public function isFeederBelongsToUser()
+    {
+        if($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY') ){
+            $feeder = $this->getDoctrine()->getRepository('FeederBundle:Feeder')->findOneBy(array(
+                'user' => $this->getUser()->getId()
+            ));
+        }
+        return isset($feeder) ? true : false;
     }
 }

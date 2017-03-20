@@ -18,7 +18,7 @@ class FeedController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $form = $this->createForm(new ManualFeedType($this->getUser()->getId()));
+        $form = $this->createForm($this->get('manualfeed.type'));
         $form->handleRequest($request);
         $data = $form->getData();
 //        dump($data);die;

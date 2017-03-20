@@ -1,4 +1,5 @@
 {% extends '::base.html.twig' %}
+{% block title %} {{ 'home' | trans }} {% endblock %}
 {% block body %}
         {% if not app.user %}
             {% include '@Home/AnonymousLayout/anonymLayout.html.twig' %}

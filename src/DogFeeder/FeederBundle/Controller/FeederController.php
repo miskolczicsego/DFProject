@@ -91,15 +91,6 @@ class FeederController extends Controller
         $em->remove($feeder);
         $em->flush();
 
-        $feedersToUser = $this->getDoctrine()->getRepository('FeederBundle:Feeder')->findBy(array(
-            'user' => $this->getUser()
-        ));
-//        $template =  $this->render('@Feeder/FeederList/feeder_list.html.twig', array(
-//            'feedersToUser' => $feedersToUser
-//        ));
-//
-//        return new Response($template);
-
         return $this->redirectToRoute('feeder_feeder_list');
     }
 }

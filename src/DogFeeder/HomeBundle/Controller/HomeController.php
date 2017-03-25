@@ -22,18 +22,18 @@ class HomeController extends Controller
         return $this->redirectToRoute('home_home_index');
     }
 
-    public function indexAction(Request $request)
+    public function indexAction()
     {
         if ($this->isFeederBelongsToUser()) {
             $manualFeedForm = $this->createForm($this->get('manualfeed.type'));
             $statFilterForm = $this->createForm($this->get('filter.type'));
             $userId = $this->getUser()->getId();
-            $statLimit = $this->get('config')->get('stat_limit', $userId)->getValue();
-            $feedStatsToUser = $this->getLastFeedstatsToCurrentUser($statLimit);
+            $historyLimit = $this->get('config')->get('history_limit', $userId)->getValue();
+            $feedHitoriesToUser = $this->getLastFeedhistoriesToCurrentUser($historyLimit);
 
             return $this->render("@Home/layout.html.twig",array(
                 'renderStatTable' => true,
-                'getLastFeedstatsByUserId' => $feedStatsToUser,
+                'getLastFeedhistoriesByUserId' => $feedHitoriesToUser,
                 'form' => $manualFeedForm->createView(),
                 'filterForm' => $statFilterForm->createView()
             ));
@@ -44,9 +44,9 @@ class HomeController extends Controller
         }
     }
 
-    public function getLastFeedstatsToCurrentUser($limit)
+    public function getLastFeedhistoriesToCurrentUser($limit)
     {
-        return $this->getDoctrine()->getRepository('FeederBundle:FeedStat')->getLastFeedstatsByUserId($this->getUser()->getId(), $limit);
+        return $this->getDoctrine()->getRepository('FeederBundle:FeedHistory')->getLastFeedhistoriesByUserId($this->getUser()->getId(), $limit);
     }
 
     public function isFeederBelongsToUser()

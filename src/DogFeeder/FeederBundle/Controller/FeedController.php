@@ -9,40 +9,58 @@
 namespace DogFeeder\FeederBundle\Controller;
 
 
-use DogFeeder\FeederBundle\Entity\FeedStat;
+use DogFeeder\FeederBundle\Entity\FeedHistory;
 use DogFeeder\FeederBundle\Form\Type\ManualFeedType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class FeedController extends Controller
 {
+    private $formData;
+
     public function indexAction(Request $request)
+    {
+        $this->formData = $this->getFormData($request);
+        $feeder = $this->getDoctrine()->getRepository('FeederBundle:Feeder')->find($this->formData['feeder']);
+
+        $feedResponse = $this->feed();
+
+        $messages = implode(', ', $feedResponse);
+
+        $this->addFeedStat($feeder, $messages);
+
+        return $this->redirectToRoute('home_home_index');
+    }
+
+    public function feed()
+    {
+        $output = array();
+        exec("/var/www/html/DFProject/src/DogFeeder/FeederBundle/Resources/files/feed.py", $output);
+
+        return $output;
+    }
+
+    public function getFormData($request)
     {
         $form = $this->createForm($this->get('manualfeed.type'));
         $form->handleRequest($request);
         $data = $form->getData();
-//        dump($data);die;
-        $feeder = $this->getDoctrine()->getRepository('FeederBundle:Feeder')->find($data['feeder']);
-        $output = array();
-        exec("/var/www/html/DFProject/src/DogFeeder/FeederBundle/Resources/files/hello.py", $output);
-        $stat = new FeedStat();
+
+        return $data;
+    }
+
+    public function addFeedStat($feeder, $messages)
+    {
+        $stat = new FeedHistory();
         $em = $this->getDoctrine()->getManager();
 
-        if(isset($output[0]) && $output[0] === "Hello, World!" )
-        {
-            $stat->setQuantity($data['quantity']);
-            $stat->setDescription("everything was OK");
-            $stat->setFeeder($feeder);
-            $em->persist($stat);
-        } else {
-            $stat->setQuantity(0);
-            $stat->setDescription("something was went wrong");
-            $stat->setFeeder($feeder);
-            $em->persist($stat);
-        }
+        $stat->setQuantity($messages == 'Successful feed' ? $this->formData['quantity'] : 0);
+        //TODO: itt a visszatérő angol üzeneteket magyarra kéne fordítani
+        $stat->setDescription($messages);
+        $stat->setFeeder($feeder);
+        $em->persist($stat);
 
         $em->flush();
-        return $this->redirectToRoute('home_home_index');
     }
 
 }

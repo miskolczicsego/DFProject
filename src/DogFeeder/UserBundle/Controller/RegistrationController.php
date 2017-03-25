@@ -48,6 +48,6 @@ class RegistrationController extends Controller
     public function createDefaultConfigToUser($user)
     {
         $config = $this->container->get('config');
-        $config->set('stat_limit', '5', $user);
+        $config->set('history_limit', '5', $user);
     }
 }

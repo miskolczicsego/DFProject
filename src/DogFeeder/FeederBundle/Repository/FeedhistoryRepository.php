@@ -10,49 +10,49 @@ namespace DogFeeder\FeederBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
-class FeedstatRepository extends EntityRepository
+class FeedhistoryRepository extends EntityRepository
 {
-    public function getLastFeedstatsByUserId($id, $limit)
+    public function getLastFeedhistoriesByUserId($id, $limit)
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            "SELECT fs.id, fs.createdAt, fs.description, fs.quantity, f.name
-             FROM FeederBundle:FeedStat fs
+            "SELECT fh.id, fh.createdAt, fh.description, fh.quantity, f.name
+             FROM FeederBundle:FeedHistory fh
              JOIN FeederBundle:Feeder f
-             WITH fs.feeder = f.id
+             WITH fh.feeder = f.id
              AND f.user = {$id}
-             ORDER BY fs.createdAt DESC
+             ORDER BY fh.createdAt DESC
              "
         )->setMaxResults($limit)->getArrayResult();
 
         return $query;
     }
 
-    public function findStatsByFeeder($feederName, $statLimit)
+    public function findHistoryByFeeder($feederName, $historyimit)
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            "SELECT fs.id, fs.createdAt, fs.description, fs.quantity, f.name
-             FROM FeederBundle:FeedStat fs
+            "SELECT fh.id, fh.createdAt, fh.description, fh.quantity, f.name
+             FROM FeederBundle:FeedHistory fh
              JOIN FeederBundle:Feeder f
              WHERE f.name = '" . $feederName . "'
-             AND fs.feeder = f.id
-             ORDER BY fs.createdAt DESC"
-        )->setMaxResults($statLimit)->getArrayResult();
+             AND fh.feeder = f.id
+             ORDER BY fh.createdAt DESC"
+        )->setMaxResults($historyimit)->getArrayResult();
         return $query;
     }
 
-    public function findAllLimited($statLimit)
+    public function findAllLimited($feederName, $historyLimit)
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
             "SELECT fs.id, fs.createdAt, fs.description, fs.quantity, f.name
-             FROM FeederBundle:FeedStat fs
+             FROM FeederBundle:FeedHistory fs
              JOIN FeederBundle:Feeder f
              WHERE f.name = '" . $feederName . "'
              AND fs.feeder = f.id
              ORDER BY fs.createdAt DESC"
-        )->setMaxResults($statLimit)->getArrayResult();
+        )->setMaxResults($historyLimit)->getArrayResult();
         return $query;
     }
 }

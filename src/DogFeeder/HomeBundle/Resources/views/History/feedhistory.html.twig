@@ -12,7 +12,7 @@
     </div>
 </div>
 
-    {% include '@Feeder/FeedstatTable/feedstat_table.html.twig' %}
+    {% include '@Feeder/FeedhistoryTable/feedhistory_table.html.twig' %}
 
 {{ form_start(form, {'action': path('feeder_feed_index'), 'method': 'POST'}) }}
 <div class="row">
@@ -43,12 +43,12 @@
 {{ form_end(form) }}
 
 <script>
-    function deleteStat(el) {
+    function deleteHistory(el) {
         $.ajax({
             type: "POST",
             cache: false,
             dataType: "html",
-            url: "{{ path('feeder_feedstat_remove') }}",
+            url: "{{ path('feeder_feedhistory_remove') }}",
             data: {"id": el.id},
             success: function(data) {
                 $('.table').html(data);
@@ -56,7 +56,7 @@
         })
     }
 
-    $('#filter_feeder   ').change(function() {
+    $('#filter_feeder').change(function() {
         var selectedText = $('#filter_feeder option:selected').text();
         var selectedValue = $('#filter_feeder option:selected').val();
 
@@ -64,7 +64,7 @@
             type: "GET",
             cache: false,
             dataType: "html",
-            url: "{{ path('feeder_feedstat_filter') }}",
+            url: "{{ path('feeder_feedhistory_filter') }}",
             data: {"name": selectedText, "value": selectedValue},
             success: function(data) {
                 $('.table').html(data)

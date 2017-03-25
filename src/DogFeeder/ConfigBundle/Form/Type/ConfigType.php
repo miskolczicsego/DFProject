@@ -35,7 +35,7 @@ class ConfigType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('stat_limit', TextType::class, array(
+            ->add('history_limit', TextType::class, array(
                 'label' => 'stat_display_limit',
                 'required' => false,
                 'translation_domain' => 'messages',

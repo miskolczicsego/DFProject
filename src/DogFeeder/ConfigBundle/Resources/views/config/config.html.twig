@@ -9,11 +9,11 @@
             'method': 'POST'
         })  }}
 
-        {{ form_label(form.stat_limit) }}
-        {{ form_widget(form.stat_limit, {
+        {{ form_label(form.history_limit) }}
+        {{ form_widget(form.history_limit, {
             'attr': {
                 'class': 'form-control',
-                'value': data.stat_limit.value
+                'value': data.history_limit.value
             }
         }
         ) }}

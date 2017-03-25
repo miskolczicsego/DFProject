@@ -16,10 +16,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 use DogFeeder\UserBundle\Form\Validator\Constraints as UsernameValidator;
 
 /**
- * @ORM\Entity(repositoryClass="DogFeeder\FeederBundle\Repository\FeedstatRepository")
- * @ORM\Table(name="feedstat")
+ * @ORM\Entity(repositoryClass="DogFeeder\FeederBundle\Repository\FeedhistoryRepository")
+ * @ORM\Table(name="feedhistory")
  */
-class FeedStat extends Timestampable
+class FeedHistory extends Timestampable
 {
     /**
      * @ORM\Id

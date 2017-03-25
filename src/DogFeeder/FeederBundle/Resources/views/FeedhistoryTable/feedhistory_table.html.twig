@@ -7,14 +7,14 @@
     <th></th>
     </thead>
     <tbody>
-    {% if getLastFeedstatsByUserId is not empty %}
-        {% for stat in getLastFeedstatsByUserId %}
-            <tr class="row-{{ stat.id }}">
-                <td>{{ stat.createdAt | date("Y-m-d H:i:s")}}</td>
-                <td>{{ stat.description }}</td>
-                <td>{{ stat.quantity }}</td>
-                <td>{{ stat.name }}</td>
-                <td><button class="btn btn-danger delete-button" id="{{ stat.id }}" onclick="deleteStat(this)">
+    {% if getLastFeedhistoriesByUserId is not empty %}
+        {% for history in getLastFeedhistoriesByUserId %}
+            <tr class="row-{{ history.id }}">
+                <td>{{ history.createdAt | date("Y-m-d H:i:s")}}</td>
+                <td>{{ history.description }}</td>
+                <td>{{ history.quantity }}</td>
+                <td>{{ history.name }}</td>
+                <td><button class="btn btn-danger delete-button" id="{{ history.id }}" onclick="deleteHistory(this)">
                         <span class="glyphicon glyphicon-trash"></span>
                     </button></td>
             </tr>

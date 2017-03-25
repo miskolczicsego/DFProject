@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="feeder_feedhistory_filter" path="/home/filter_history" methods="GET POST">
+        <default key="_controller">FeederBundle:Feedhistory:filter</default>
+    </route>
+
+
+    <route id="feeder_feedhistory_remove" path="/home/remove_history" methods="GET POST">
+        <default key="_controller">FeederBundle:Feedhistory:remove</default>
+    </route>
+</routes>

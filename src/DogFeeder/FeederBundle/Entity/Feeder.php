@@ -40,10 +40,10 @@ class Feeder extends Timestampable
     private $user;
 
     /**
-     * One Feeder has Many feedstat.
-     * @OneToMany(targetEntity="DogFeeder\FeederBundle\Entity\FeedStat", mappedBy="feeder", cascade={"remove"})
+     * One Feeder has Many history.
+     * @OneToMany(targetEntity="DogFeeder\FeederBundle\Entity\FeedHistory", mappedBy="feeder", cascade={"remove"})
      */
-    private $feedstats;
+    private $feedhistories;
 
     /**
      * Constructor
@@ -51,7 +51,7 @@ class Feeder extends Timestampable
 
     public function __construct()
     {
-        $this->feedstats = new ArrayCollection();
+        $this->feedhistories = new ArrayCollection();
     }
 
     /**
@@ -74,17 +74,17 @@ class Feeder extends Timestampable
     /**
      * @return mixed
      */
-    public function getFeedstats()
+    public function getFeedhistories()
     {
-        return $this->feedstats;
+        return $this->feedhistories;
     }
 
     /**
      * @param mixed $feedstats
      */
-    public function addFeedstat($feedstat)
+    public function addFeedhistory($feedhistory)
     {
-        $this->feedstats->add($feedstat);
+        $this->feedhistories->add($feedhistory);
     }
 
 

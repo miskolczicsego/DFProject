@@ -19,7 +19,7 @@ class SettingController extends Controller
     {
         $data = array();
         $config = $this->get('config');
-        $data['stat_limit'] = $config->get('stat_limit', $this->getUser()->getId());
+        $data['history_limit'] = $config->get('history_limit', $this->getUser()->getId());
 
         $form = $this->createForm('DogFeeder\ConfigBundle\Form\Type\ConfigType');
         return $this->render('@Config/config/config.html.twig', array(

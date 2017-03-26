@@ -3,6 +3,12 @@ Hogyan telepítsük az etetőt?
 
 **(a következő lépéseket Ubuntu 16.04 LTS, illetve Raspbian operációs rendszerek alatt végeztem, így előfordulhat hogy más rendszereken nem ezek a parancsok használatosak ugyanezen eredmény eléréséhez. )**
 
+Mindenek előtt lokális környezetben való futtatáshoz szükség van egy webszerverre:
+Linux:
+https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-16-04
+Windows:
+https://www.apachefriends.org/hu/
+
 1.Composer telepítése (php csomagkezelő)
 ----------------------------------------
 
@@ -65,14 +71,19 @@ Hogyan telepítsük az etetőt?
 
 >   php app/console doctrine:schema:update --force
 
+7.Telepítsük a css, és js fileokat a web mappa alá:
+--------------------------------------------------
+
+>   php app/console asset:install
+
 Végezetül indítsuk el a szervert:
 ---------------------------------
 
 >   php app/console server:run
 
 
-
-
+Az alkalmazás a localhost:8000 url alatt érhető el a továbbiakban.
+------------------------------------------------------------------
 
 
 

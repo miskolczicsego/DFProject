@@ -8,8 +8,11 @@
 
 namespace DogFeeder\FeederBundle\Form\Type;
 
-use DogFeeder\FeederBundle\Entity\Feeder;
+use DogFeeder\ScheduleBundle\Entity\Schedule;
+use DogFeeder\ScheduleBundle\ScheduleBundle;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,20 +24,25 @@ class FeederType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
+            ->add('numberOfFeedPerDay', ChoiceType::class, array(
+                'choices' => array('1', '2', '3', '4', '5'),
+                'empty_data' => '0',
+                'empty_value' => '------ Válassz -------'
+            ))
             ->add('save', SubmitType::class);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => Feeder::class,
-        ));
-    }
-
-    //todo pontosan mire használjuk???
+    /**
+     * @return string
+     * ->add('feed_time_per_day', ChoiceType::class, array(
+    'choices' => array('1','2','3','4','5'),
+    'empty_data' => '--- Válassz ----',
+    'empty_value' => '0'
+    ))
+     */
     public function getBlockPrefix()
     {
-        return 'feeder_add';
+        return 'feeder';
     }
 
 }

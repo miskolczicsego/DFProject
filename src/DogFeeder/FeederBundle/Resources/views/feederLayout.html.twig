@@ -4,5 +4,6 @@
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('bundles/home/css/starter.css') }}" />
         {% endblock %}
+        {% block javascripts %}<script src="{{ asset('bundles/feeder/js/feedHourInputAppender.js') }}"></script>{% endblock %}
         {% include '@Feeder/FeederList/feeder_list.html.twig' %}
 {% endblock %}

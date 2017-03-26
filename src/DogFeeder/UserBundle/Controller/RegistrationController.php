@@ -49,5 +49,6 @@ class RegistrationController extends Controller
     {
         $config = $this->container->get('config');
         $config->set('history_limit', '5', $user);
+        $config->set('schedule_feed', 0, $user);
     }
 }

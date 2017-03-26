@@ -41,6 +41,11 @@ class ConfigRegistry
         return $config;
     }
 
+    public function getValue($key, $userId)
+    {
+        return $this->get($key, $userId)->getValue();
+    }
+
     /**
      * Set new config
      *

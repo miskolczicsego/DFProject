@@ -1,6 +1,12 @@
 {% extends '@Feeder/feederLayout.html.twig' %}
 {% block body %}
     {{ form_start(form, {'action': path('feeder_feeder_add'), 'method': 'POST'}) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
+    {{ form_row(form.name) }}
+    {% if isScheduledFeedEnabled == '1' %}
+        {{ form_row(form.numberOfFeedPerDay) }}
+    {% endif %}
+
+    <div id="feed-hours"></div>
+    {{ form_row(form.save) }}
+    {{ form_end(form, {'render_rest': false})  }}
 {% endblock %}

@@ -11,6 +11,7 @@ namespace DogFeeder\FeederBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 use DogFeeder\UserBundle\Entity\Timestampable;
 use Doctrine\ORM\Mapping as ORM;
@@ -45,6 +46,23 @@ class Feeder extends Timestampable
      */
     private $feedhistories;
 
+
+    /**
+     * One Feeder has One Schedule.
+     * @OneToOne(targetEntity="DogFeeder\ScheduleBundle\Entity\Schedule", mappedBy="feeder", cascade={"remove"})
+     */
+    private $schedule;
+
+    private $numberOfFeedPerDay;
+
+    /**
+     * @param mixed $numberOfFeedPerDay
+     */
+    public function setNumberOfFeedPerDay($numberOfFeedPerDay)
+    {
+        $this->numberOfFeedPerDay = $numberOfFeedPerDay;
+    }
+
     /**
      * Constructor
      */
@@ -70,6 +88,27 @@ class Feeder extends Timestampable
         $this->user = $user;
     }
 
+    public function getNumberOfFeedPerDay()
+    {
+        return $this->numberOfFeedPerDay;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSchedule()
+    {
+        return $this->schedule;
+    }
+
+    /**
+     * @param mixed $schedule
+     */
+    public function setSchedule($schedule)
+    {
+        $this->schedule = $schedule;
+    }
+
 
     /**
      * @return mixed
@@ -86,8 +125,6 @@ class Feeder extends Timestampable
     {
         $this->feedhistories->add($feedhistory);
     }
-
-
 
     /**
      * @return mixed

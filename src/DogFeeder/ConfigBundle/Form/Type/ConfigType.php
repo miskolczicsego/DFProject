@@ -13,6 +13,8 @@ use DogFeeder\ConfigBundle\Form\Validator\Constraints\NumericStatLimit;
 use DogFeeder\UserBundle\Form\Validator\Constraints\NotBlank;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -43,7 +45,16 @@ class ConfigType extends AbstractType
                     new NumericStatLimit($this->translator),
                     new NotBlank()
                 ),
-            ));
+            ))
+        ->add('schedule_feed', ChoiceType::class, array(
+            'choices' => array(
+                0 => 'no',
+                1 => 'yes'
+            ),
+            'label' => 'scheduled_feed',
+            'expanded' => true,
+            'translation_domain' => 'messages'
+        ));
     }
 
     public function getBlockPrefix()

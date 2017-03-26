@@ -2,3 +2,6 @@ statlimit_numeric: A mező csak számokat tartalmazhat
 stat_display_limit: Etetési történetek maximális száma a főoldalon
 config_save_success: Beállítások mentése sikeres
 setting_title: Beállítások
+yes: Igen
+no: Nem
+scheduled_feed: Automatikus etetés bekapcsolása

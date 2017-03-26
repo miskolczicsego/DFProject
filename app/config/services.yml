@@ -17,6 +17,11 @@ services:
             - { name: form.type, alias: config_add }
         arguments: ['@translator.default']
 
+    feeder.type:
+            class: DogFeeder\FeederBundle\Form\Type\FeederType
+            tags:
+                - { name: form.type, alias: feeder_edit }
+
     filter.type:
         class: DogFeeder\FeederBundle\Form\Type\FilterType
         tags:

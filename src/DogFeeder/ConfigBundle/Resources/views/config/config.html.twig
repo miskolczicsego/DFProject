@@ -15,11 +15,19 @@
                 'class': 'form-control',
                 'value': data.history_limit.value
             }
-        }
-        ) }}
+        }) }}
+
+
+        {{ form_row(form.schedule_feed) }}
+
         <button type="submit" class="btn btn-primary">{{ 'save'|trans }}</button>
         {{ form_end(form) }}
 
     </div>
+    <script>
+        var element = $('#configs_schedule_feed_{{ data.schedule_feed.value }}');
+        element.attr("checked", true);
+    </script>
 
 {% endblock %}
+

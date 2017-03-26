@@ -20,7 +20,8 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new DogFeeder\HomeBundle\HomeBundle(),
             new DogFeeder\ConfigBundle\ConfigBundle(),
-            new DogFeeder\FeederBundle\FeederBundle()
+            new DogFeeder\FeederBundle\FeederBundle(),
+            new DogFeeder\ScheduleBundle\ScheduleBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

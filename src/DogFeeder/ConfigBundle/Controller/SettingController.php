@@ -18,10 +18,12 @@ class SettingController extends Controller
     public function indexAction()
     {
         $data = array();
+        $userId = $this->getUser()->getId();
         $config = $this->get('config');
-        $data['history_limit'] = $config->get('history_limit', $this->getUser()->getId());
-
+        $data['history_limit'] = $config->get('history_limit', $userId);
+        $data['schedule_feed'] = $config->get('schedule_feed', $userId);
         $form = $this->createForm('DogFeeder\ConfigBundle\Form\Type\ConfigType');
+        dump($form);
         return $this->render('@Config/config/config.html.twig', array(
             'form' => $form->createView(),
             'data' => $data

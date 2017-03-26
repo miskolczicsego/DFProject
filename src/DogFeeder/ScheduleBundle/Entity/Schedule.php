@@ -16,7 +16,7 @@ use DogFeeder\UserBundle\Entity\Timestampable;
 
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="DogFeeder\ScheduleBundle\Repository\ScheduleRepository")
  * @ORM\Table(name="scheduled_feeds")
  */
 
@@ -213,6 +213,11 @@ class Schedule extends Timestampable
     public function setFeeder($feeder)
     {
         $this->feeder = $feeder;
+    }
+
+    public function __toString()
+    {
+        return 'id' . $this->getId();
     }
 
 

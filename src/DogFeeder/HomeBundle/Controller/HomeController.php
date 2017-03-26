@@ -24,6 +24,7 @@ class HomeController extends Controller
 
     public function indexAction()
     {
+        $schedule = $this->getDoctrine()->getManager()->getRepository('ScheduleBundle:Schedule')->getFirstScheduleByDate();
         if ($this->isFeederBelongsToUser()) {
             $manualFeedForm = $this->createForm($this->get('manualfeed.type'));
             $statFilterForm = $this->createForm($this->get('filter.type'));

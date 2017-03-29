@@ -17,11 +17,11 @@ class ScheduleRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            "SELECT s.id, s.feed_hour_1, s.feed_hour_2, s.feed_hour_3, s.feed_hour_4, s.feed_hour_5, s.feedCounter, s.numberOfFeedPerDay
+            "SELECT s
              FROM ScheduleBundle:Schedule s
              ORDER BY s.createdAt ASC
              "
-        )->setMaxResults(1)->getArrayResult();
+        )->getOneOrNullResult();
 
         return $query;
     }

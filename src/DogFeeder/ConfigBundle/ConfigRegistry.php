@@ -23,9 +23,9 @@ class ConfigRegistry
     }
 
     /**
-     * Get config by key
-     *
      * @param $key
+     * @param $userId
+     * @return Config|null|object|NotFoundHttpException
      */
     public function get($key, $userId)
     {

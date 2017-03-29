@@ -40,6 +40,15 @@ class FeederRepository extends EntityRepository
         return $result;
     }
 
+    public function getFeederToSchedule($scheduleId)
+    {
+         $query = $this->getQueryBuilder();
+         $query->leftJoin('f.schedule', 's')
+             ->where('s.id =?1')
+             ->setParameter(1,$scheduleId);
+        return $query->getQuery()->getOneOrNullResult();
+    }
+
     private function getQueryBuilder()
     {
         $em = $this->getEntityManager();

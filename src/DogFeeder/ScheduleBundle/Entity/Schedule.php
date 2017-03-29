@@ -60,9 +60,19 @@ class Schedule extends Timestampable
     private $numberOfFeedPerDay;
 
     /**
+     * @ORM\Column(name="quantity", type="string", length=3, nullable=true, options={"default" : 0})
+     */
+    private $quantity;
+
+    /**
      * @ORM\Column(name="feedcounter", type="string", length=1, nullable=true, options={"default" : 0})
      */
     private $feedCounter;
+
+    /**
+     * @ORM\Column(name="user_id", type="integer")
+     */
+    private $userId;
 
     /**
      * One Cart has One Customer.
@@ -87,6 +97,21 @@ class Schedule extends Timestampable
         $this->id = $id;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * @param mixed $userId
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+    }
     /**
      * @return mixed
      */
@@ -165,6 +190,22 @@ class Schedule extends Timestampable
     public function setFeedHour5($feed_hour_5)
     {
         $this->feed_hour_5 = $feed_hour_5;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param mixed $quantity
+     */
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
     }
 
     /**

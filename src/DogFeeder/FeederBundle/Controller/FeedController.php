@@ -16,27 +16,31 @@ use Symfony\Component\HttpFoundation\Request;
 
 class FeedController extends Controller
 {
+    const SUCCESSFULL_FEED_RESPONESE = 'OK'. PHP_EOL;
+
     private $formData;
 
     public function indexAction(Request $request)
     {
         $this->formData = $this->getFormData($request);
+
         $feeder = $this->getDoctrine()->getRepository('FeederBundle:Feeder')->find($this->formData['feeder']);
 
         $feedResponse = $this->feed();
 
-        $messages = implode(', ', $feedResponse);
+//        $messages = implode(', ', $feedResponse);
 
-        $this->addFeedStat($feeder, $messages);
+
+        $this->addFeedStat($feeder, $feedResponse);
 
         return $this->redirectToRoute('home_home_index');
     }
 
     public function feed()
     {
-        $output = array();
-        exec("/var/www/html/DFProject/src/DogFeeder/FeederBundle/Resources/files/feed.py", $output);
-
+//      $output = shell_exec("python /var/www/html/DFProject/src/DogFeeder/FeederBundle/Resources/files/feed.py");
+        $output = shell_exec("python /var/www/html/DFProject/src/DogFeeder/FeederBundle/Resources/files/test.py");
+//        dump($output);die;
         return $output;
     }
 
@@ -49,14 +53,13 @@ class FeedController extends Controller
         return $data;
     }
 
-    public function addFeedStat($feeder, $messages)
+    public function addFeedStat($feeder, $feedResponse)
     {
         $stat = new FeedHistory();
         $em = $this->getDoctrine()->getManager();
-
-        $stat->setQuantity($messages == 'Successful feed' ? $this->formData['quantity'] : 0);
+        $stat->setQuantity($feedResponse == self::SUCCESSFULL_FEED_RESPONESE ? $this->formData['quantity'] : 0);
         //TODO: itt a visszatérő angol üzeneteket magyarra kéne fordítani
-        $stat->setDescription($messages);
+        $stat->setDescription($feedResponse);
         $stat->setFeeder($feeder);
         $em->persist($stat);
 

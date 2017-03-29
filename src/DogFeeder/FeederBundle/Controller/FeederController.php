@@ -77,7 +77,10 @@ class FeederController extends Controller
         $config = $this->get('config');
         $isScheduledFeedEnabled = $config->getValue('schedule_feed', $this->getUser()->getId());
 
-
+        $scheduleToFeeder = $this->getDoctrine()->getRepository('ScheduleBundle:Schedule')->findOneBy(array(
+            'feeder' => $feeder
+        ));
+//    dump($scheduleToFeeder);die;
         $editForm->handleRequest($request);
         $translator = $this->container->get('translator');
         if ($editForm->isSubmitted()) {
@@ -96,7 +99,8 @@ class FeederController extends Controller
         $template = $this->renderView('@Feeder/FeederList/feeder_edit.html.twig', array(
                 'edit_form' => $editForm->createView(),
                 'feederId' => $feederId,
-                'isScheduledFeedEnabled' => $isScheduledFeedEnabled
+                'isScheduledFeedEnabled' => $isScheduledFeedEnabled,
+                'scheduleToFeeder' => $scheduleToFeeder
             )
         );
         return new Response($template);
@@ -138,8 +142,13 @@ class FeederController extends Controller
             if (isset($editFormData['feed-hour-5']) && $key == 'feed-hour-5') {
                 $schedule->setFeedHour5($value);
             }
+            if (isset($editFormData['scheduled-feed-quantity']) && $key == 'scheduled-feed-quantity') {
+                $schedule->setQuantity($editFormData['scheduled-feed-quantity']);
+            }
         }
+
         $schedule->setFeeder($feeder);
+        $schedule->setUserId($this->getUser()->getId());
         $this->getDoctrine()->getManager()->persist($schedule);
         $this->getDoctrine()->getManager()->flush();
     }
@@ -160,10 +169,10 @@ class FeederController extends Controller
     public function refreshSchedule($request, $feederId)
     {
         $editFormData = $request->request->get('feeder');
+
         $schedule = $this->getDoctrine()->getManager()->getRepository('ScheduleBundle:Schedule')->findOneBy(array(
             'feeder' => $feederId
         ));
-//        dump($schedule);die;
 
         $schedule->setNumberOfFeedPerDay($editFormData['numberOfFeedPerDay']);
         $schedule->setFeedHour1(isset($editFormData['feed-hour-1']) ? $editFormData['feed-hour-1'] : null);
@@ -171,6 +180,7 @@ class FeederController extends Controller
         $schedule->setFeedHour3(isset($editFormData['feed-hour-3']) ? $editFormData['feed-hour-3'] : null);
         $schedule->setFeedHour4(isset($editFormData['feed-hour-4']) ? $editFormData['feed-hour-4'] : null);
         $schedule->setFeedHour5(isset($editFormData['feed-hour-5']) ? $editFormData['feed-hour-5'] : null);
+        $schedule->setQuantity(isset($editFormData['scheduled-feed-quantity']) ? $editFormData['scheduled-feed-quantity'] : null);
 
         $this->getDoctrine()->getManager()->flush();
     }

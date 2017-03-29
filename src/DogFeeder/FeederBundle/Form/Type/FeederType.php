@@ -25,21 +25,12 @@ class FeederType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('numberOfFeedPerDay', ChoiceType::class, array(
-                'choices' => array('1', '2', '3', '4', '5'),
-                'empty_data' => '0',
-                'empty_value' => '------ Válassz -------'
+                'choices' => array('0', '1', '2', '3', '4', '5'),
+                'empty_value' => '------ Válassz -------',
             ))
             ->add('save', SubmitType::class);
     }
 
-    /**
-     * @return string
-     * ->add('feed_time_per_day', ChoiceType::class, array(
-    'choices' => array('1','2','3','4','5'),
-    'empty_data' => '--- Válassz ----',
-    'empty_value' => '0'
-    ))
-     */
     public function getBlockPrefix()
     {
         return 'feeder';

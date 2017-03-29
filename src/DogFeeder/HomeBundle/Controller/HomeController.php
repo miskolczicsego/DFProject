@@ -27,8 +27,8 @@ class HomeController extends Controller
 //        $schedule = $this->getDoctrine()->getManager()->getRepository('FeederBundle:Feeder')->getFeederToSchedule(1);
 //        dump($schedule);die;
 
-        $schedule = $this->getDoctrine()->getManager()->getRepository('ScheduleBundle:Schedule')->getFirstScheduleByDate();
-        dump($schedule);die;
+//        $schedule = $this->getDoctrine()->getManager()->getRepository('ScheduleBundle:Schedule')->getFirstScheduleByDate();
+//        dump($schedule);die;
 
 //        dump($this->get('security.token_storage')->getToken());die;
         if ($this->isFeederBelongsToUser()) {

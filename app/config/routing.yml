@@ -24,6 +24,9 @@ feedhistory:
 config:
     resource: "@ConfigBundle/Resources/config/routing/config.xml"
     prefix: /
+schedule:
+    resource: "@ScheduleBundle/Resources/config/routing/schedule.xml"
+    prefix: /
 
 
 

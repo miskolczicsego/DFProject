@@ -50,7 +50,7 @@ class FeedhistoryController extends Controller
 
         $allHistories = $this->getDoctrine()->getManager()->getRepository('FeederBundle:FeedHistory')->getLastFeedhistoriesByUserId($this->getUser()->getId(), $historyLimit);
         return $this->render('@Feeder/FeedhistoryTable/feedhistory_table.html.twig', array(
-            'getLastFeedstatsByUserId' => $allHistories
+            'getLastFeedhistoriesByUserId' => $allHistories
         ));
 
     }

@@ -1,7 +1,7 @@
 {% extends '@Home/layout.html.twig' %}
 {% block title %} {{ 'feeder_edit_title' | trans }} {% endblock %}
 {% block body %}
-
+    <div class="col-xs-6 col-sm-6 col-md-2">
     {{ form_start(edit_form,  {
         'action': path('feeder_feeder_edit', {
             'feederId': feederId
@@ -9,9 +9,11 @@
         'method': 'POST'
     }) }}
 
-    {{ form_row(edit_form.name) }}
+    <h3>{{ form_label(edit_form.name) }}</h3>
+    {{ form_widget(edit_form.name) }}
     {% if isScheduledFeedEnabled == '1' %}
-        {{ form_row(edit_form.numberOfFeedPerDay) }}
+        <h3>{{ form_label(edit_form.numberOfFeedPerDay) }}</h3>
+        {{ form_widget(edit_form.numberOfFeedPerDay) }}
     {% endif %}
     <div id="feed-hours">
 
@@ -19,63 +21,65 @@
     {{ form_row(edit_form.save) }}
     {{ form_end(edit_form, {'render_rest': false}) }}
 {#{{ dump(scheduleToFeeder) }}#}
-    <table class="table table-feeder table-hover">
-        <thead>
-        <th>{{ 'createdAt' | trans }}</th>
-        {% if scheduleToFeeder.feedHour1 != null %}
-            <th>{{ 'feed_hour_1' | trans }}</th>
-        {% endif %}
-        {% if scheduleToFeeder.feedHour2 != null %}
-            <th>{{ 'feed_hour_2' | trans }}</th>
-        {% endif %}
-        {% if scheduleToFeeder.feedHour3 != null %}
-            <th>{{ 'feed_hour_3' | trans }}</th>
-        {% endif %}
-        {% if scheduleToFeeder.feedHour4 != null %}
-            <th>{{ 'feed_hour_4' | trans }}</th>
-        {% endif %}
-        {% if scheduleToFeeder.feedHour5 != null %}
-            <th>{{ 'feed_hour_5' | trans }}</th>
-        {% endif %}
-        <th>{{ 'numberOfFeedPerDay' | trans }}</th>
-        <th>{{ 'quantity' | trans }}</th>
-        <th>{{ 'feedCounter' | trans }}</th>
+    {% if scheduleToFeeder is not null %}
+        <h2>{{ 'scheduled_feed_table' | trans }}</h2>
+        <table class="table table-feeder table-hover">
+            <thead>
+            <th>{{ 'createdAt' | trans }}</th>
+            {% if scheduleToFeeder.feedHour1 != null %}
+                <th>{{ 'feed_hour_1' | trans }}</th>
+            {% endif %}
+            {% if scheduleToFeeder.feedHour2 != null %}
+                <th>{{ 'feed_hour_2' | trans }}</th>
+            {% endif %}
+            {% if scheduleToFeeder.feedHour3 != null %}
+                <th>{{ 'feed_hour_3' | trans }}</th>
+            {% endif %}
+            {% if scheduleToFeeder.feedHour4 != null %}
+                <th>{{ 'feed_hour_4' | trans }}</th>
+            {% endif %}
+            {% if scheduleToFeeder.feedHour5 != null %}
+                <th>{{ 'feed_hour_5' | trans }}</th>
+            {% endif %}
+            <th>{{ 'numberOfFeedPerDay' | trans }}</th>
+            <th>{{ 'quantity' | trans }}</th>
+            <th>{{ 'feedCounter' | trans }}</th>
+            <th></th>
 
-        </thead>
-        <tbody>
-            <tr class="schedule-{{ scheduleToFeeder.id }}">
-                <td>{{ scheduleToFeeder.createdAt | date("Y-m-d H:i:s")}}</td>
-                {% if scheduleToFeeder.feedHour1 != null %}
-                    <td>{{ scheduleToFeeder.feedHour1 }}</td>
-                {% endif %}
-                {% if scheduleToFeeder.feedHour2 != null %}
-                    <td>{{ scheduleToFeeder.feedHour2 }} </td>
-                {% endif %}
-                {% if scheduleToFeeder.feedHour3 != null %}
-                    <td> {{ scheduleToFeeder.feedHour3 }} </td>
-                {% endif %}
-                {% if scheduleToFeeder.feedHour4 != null %}
-                    <td>{{ scheduleToFeeder.feedHour4 }}</td>
-                {% endif %}
-                {% if scheduleToFeeder.feedHour5 != null %}
-                    <td>{{ scheduleToFeeder.feedHour5 }}</td>
-                {% endif %}
+            </thead>
+            <tbody>
+                <tr class="schedule-{{ scheduleToFeeder.id }}">
+                    <td>{{ scheduleToFeeder.createdAt | date("Y-m-d H:i:s")}}</td>
+                    {% if scheduleToFeeder.feedHour1 != null %}
+                        <td>{{ scheduleToFeeder.feedHour1 }}</td>
+                    {% endif %}
+                    {% if scheduleToFeeder.feedHour2 != null %}
+                        <td>{{ scheduleToFeeder.feedHour2 }} </td>
+                    {% endif %}
+                    {% if scheduleToFeeder.feedHour3 != null %}
+                        <td> {{ scheduleToFeeder.feedHour3 }} </td>
+                    {% endif %}
+                    {% if scheduleToFeeder.feedHour4 != null %}
+                        <td>{{ scheduleToFeeder.feedHour4 }}</td>
+                    {% endif %}
+                    {% if scheduleToFeeder.feedHour5 != null %}
+                        <td>{{ scheduleToFeeder.feedHour5 }}</td>
+                    {% endif %}
                     <td>{{ scheduleToFeeder.numberOfFeedPerDay }}</td>
-                <td>{{ scheduleToFeeder.quantity }}</td>
-                <td>{{ scheduleToFeeder.feedCounter }}</td>
-                {#<td class="buttons-td">#}
-                    {#<a href="{{ path('feeder_feeder_edit', {'feederId': feeder.id}) }}">#}
-                        {#<button class="btn btn-default edit-button" id="feeder[{{ feeder.id }}]" >#}
-                            {#<span class="glyphicon glyphicon-edit"></span>#}
-                        {#</button>#}
-                    {#</a>#}
-                    {#<a href="{{ path('feeder_feeder_delete', {'feederId': feeder.id}) }}">#}
-                        {#<button class="btn btn-danger delete-button" id="{{ feeder.id }}" onclick="feederDelete(this)">#}
-                            {#<span class="glyphicon glyphicon-trash"></span>#}
-                        {#</button>#}
-                    {#</a>#}
-                {#</td>#}
-            </tr>
-        </tbody>
-    </table>
+                    <td>{{ scheduleToFeeder.quantity }}</td>
+                    <td>{{ scheduleToFeeder.feedCounter }}</td>
+
+                    <td class="buttons-td">
+                        <a href="{{ path('schedule_delete', {'id': scheduleToFeeder.id}) }}">
+                            <button class="btn btn-danger delete-button" id="{{ scheduleToFeeder.id }}">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    {% endif %}
+    </div>
+
 {% endblock %}

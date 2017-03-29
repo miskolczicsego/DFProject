@@ -11,13 +11,13 @@ $(document).ready( function(){
     var html = '';
     console.log(selectedValue);
     for (i = 0 ; i < selectedValue; ++i) {
-        html += '<label for="feed-hour-' + (i+1) + '">' + labelTexts[i] + '</label>';
-        html += '<input id="feed-hour-' + (i+1) + '" name="feeder[feed-hour-' + (i+1)+ ']"/>';
+        html += '<h4><label for="feed-hour-' + (i+1) + '">' + labelTexts[i] + '</label></h4>';
+        html += '<input id="feed-hour-' + (i+1) + '"class="form-control" name="feeder[feed-hour-' + (i+1)+ ']"/>';
         html += "<br />"
     }
     if (selectedValue > 0) {
-        html += '<label for="scheduled-feed-quantity">Mennyiség</label>';
-        html += '<input id="fscheduled-feed-quantity" name="feeder[scheduled-feed-quantity]"/>';
+        html += '<h4><label for="scheduled-feed-quantity">Mennyiség (g)</label></h4>';
+        html += '<input id="fscheduled-feed-quantity" class="form-control" name="feeder[scheduled-feed-quantity]"/>';
     }
     $('#feed-hours').html(html);
 })

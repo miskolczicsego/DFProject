@@ -3,7 +3,7 @@ logout: Kijelentkezés
 register: Regisztrálok
 project_name: DFProject
 contact: Kapcsolat
-about: Rólunk
+about: A projekt
 home: Főoldal
 id: ID
 date: Dátum
@@ -17,3 +17,5 @@ linktoaddfeeder: Etető hozzáadása
 feeders: Etetők
 feeder: Etető
 config: Beállítások
+feed_history: Eddigi etetéseim
+profile:  profilja

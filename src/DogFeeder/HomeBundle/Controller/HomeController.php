@@ -24,11 +24,11 @@ class HomeController extends Controller
 
     public function indexAction()
     {
-//        $schedule = $this->getDoctrine()->getManager()->getRepository('FeederBundle:Feeder')->getFeederToSchedule(1);
-//        dump($schedule);die;
+//        $schedule.xml = $this->getDoctrine()->getManager()->getRepository('FeederBundle:Feeder')->getFeederToSchedule(1);
+//        dump($schedule.xml);die;
 
-//        $schedule = $this->getDoctrine()->getManager()->getRepository('ScheduleBundle:Schedule')->getFirstScheduleByDate();
-//        dump($schedule);die;
+//        $schedule.xml = $this->getDoctrine()->getManager()->getRepository('ScheduleBundle:Schedule')->getFirstScheduleByDate();
+//        dump($schedule.xml);die;
 
 //        dump($this->get('security.token_storage')->getToken());die;
         if ($this->isFeederBelongsToUser()) {
@@ -36,11 +36,11 @@ class HomeController extends Controller
             $statFilterForm = $this->createForm($this->get('filter.type'));
             $userId = $this->getUser()->getId();
             $historyLimit = $this->get('config')->get('history_limit', $userId)->getValue();
-            $feedHitoriesToUser = $this->getLastFeedhistoriesToCurrentUser($historyLimit);
-
+            $feedHistoriesToUser = $this->getLastFeedhistoriesToCurrentUser($historyLimit);
+//            dump($feedHistoriesToUser);die;
             return $this->render("@Home/layout.html.twig",array(
                 'renderStatTable' => true,
-                'getLastFeedhistoriesByUserId' => $feedHitoriesToUser,
+                'getLastFeedhistoriesByUserId' => $feedHistoriesToUser,
                 'form' => $manualFeedForm->createView(),
                 'filterForm' => $statFilterForm->createView()
             ));

@@ -21,6 +21,7 @@ services:
             class: DogFeeder\FeederBundle\Form\Type\FeederType
             tags:
                 - { name: form.type, alias: feeder_edit }
+            arguments: ['@translator.default']
 
     filter.type:
         class: DogFeeder\FeederBundle\Form\Type\FilterType

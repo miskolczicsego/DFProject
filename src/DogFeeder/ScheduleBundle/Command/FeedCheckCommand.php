@@ -64,8 +64,8 @@ class FeedCheckCommand extends ContainerAwareCommand
     public function feed($feeder, $schedule)
     {
         $output = array();
-//      $output = shell_exec("python /var/www/html/DFProject/src/DogFeeder/FeederBundle/Resources/files/feed.py");
-        $output = shell_exec("python /var/www/html/DFProject/src/DogFeeder/FeederBundle/Resources/files/test.py");
+      $output = shell_exec("python /var/www/html/DFProject/src/DogFeeder/FeederBundle/Resources/files/feed.py");
+//        $output = shell_exec("python /var/www/html/DFProject/src/DogFeeder/FeederBundle/Resources/files/test.py");
         $stat = new FeedHistory();
         $em = $this->getContainer()->get('doctrine')->getManager();
         $schedule->setFeedCounter($schedule->getFeedCounter() + 1);

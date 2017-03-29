@@ -84,7 +84,7 @@ class FeederController extends Controller
         $editForm->handleRequest($request);
         $translator = $this->container->get('translator');
         if ($editForm->isSubmitted()) {
-            if ($isScheduledFeedEnabled && !$this->isScheduleExists($feederId)) {
+            if (!$this->isScheduleExists($feederId)) {
                 $this->addSchedule($request);
             } else {
                 $this->refreshSchedule($request, $feederId);
@@ -94,7 +94,16 @@ class FeederController extends Controller
                 ->getFlashBag()
                 ->add('success', $translator->trans('feeder_modify_success'));
 
-            return $this->redirectToRoute('home_home_index');
+            return $this->redirectToRoute('feeder_feeder_list');
+        }
+        if (!$isScheduledFeedEnabled) {
+            $request->getSession()
+                ->getFlashBag()
+                ->add('information', $translator->trans('schedule_disabled'));
+        } else {
+            $request->getSession()
+                ->getFlashBag()
+                ->add('information', $translator->trans('update_information'));
         }
         $template = $this->renderView('@Feeder/FeederList/feeder_edit.html.twig', array(
                 'edit_form' => $editForm->createView(),
@@ -146,7 +155,7 @@ class FeederController extends Controller
                 $schedule->setQuantity($editFormData['scheduled-feed-quantity']);
             }
         }
-
+        $schedule->setFeedCounter(0);
         $schedule->setFeeder($feeder);
         $schedule->setUserId($this->getUser()->getId());
         $this->getDoctrine()->getManager()->persist($schedule);
@@ -181,6 +190,7 @@ class FeederController extends Controller
         $schedule->setFeedHour4(isset($editFormData['feed-hour-4']) ? $editFormData['feed-hour-4'] : null);
         $schedule->setFeedHour5(isset($editFormData['feed-hour-5']) ? $editFormData['feed-hour-5'] : null);
         $schedule->setQuantity(isset($editFormData['scheduled-feed-quantity']) ? $editFormData['scheduled-feed-quantity'] : null);
+        $schedule->setFeedCounter(0);
 
         $this->getDoctrine()->getManager()->flush();
     }

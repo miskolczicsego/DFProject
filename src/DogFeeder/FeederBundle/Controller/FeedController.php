@@ -38,8 +38,8 @@ class FeedController extends Controller
 
     public function feed()
     {
-//      $output = shell_exec("python /var/www/html/DFProject/src/DogFeeder/FeederBundle/Resources/files/feed.py");
-        $output = shell_exec("python /var/www/html/DFProject/src/DogFeeder/FeederBundle/Resources/files/test.py");
+      $output = shell_exec("python /var/www/html/DFProject/src/DogFeeder/FeederBundle/Resources/files/feed.py");
+//        $output = shell_exec("python /var/www/html/DFProject/src/DogFeeder/FeederBundle/Resources/files/test.py");
 //        dump($output);die;
         return $output;
     }

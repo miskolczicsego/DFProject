@@ -2,8 +2,19 @@ form:
   quantity: Mennyiség
 feed_not_happened_yet: Nincs megjeleníthető történet
 createdAt: Létrehozva
-name: Etető neve
+name: Etető megnevezése:
 feeder_list: Etetők listája
 feeder_modify_success: Az etető módosítása sikeresen megtörtént
 feeder_list_title: Etetők listája
 feeder_edit_title: Etető módosítása
+schedule_disabled: Az automatikus etetés jelenleg ki van kapcsolva. Ha korábban adott meg időzítést, az látszódhat a táblázatban, de az etetés nem fog megötrténni. Amennyiben mégis automatikus kívánja működtetni az etetőt, úgy azt a Beállítások menüpontban teheti meg.
+update_information: Amennyiben adott már meg időzítést az etetőhöz, és újra beállítja azt, úgy a meglévő időzítést módosítja majd, valamint nullázódik a számláló.
+scheduled_feed_table: Ütemezett etetés
+feed_hour_1: Etetés órája 1
+feed_hour_2: Etetés órája 2
+feed_hour_3: Etetés órája 3
+feed_hour_4: Etetés órája 4
+feed_hour_5: Etetés órája 5
+numberOfFeedPerDay: Etetések száma egy nap
+feedCounter: Ennyi etetés történt
+delete_schedule_success: Sikeresen törölted az ütemezést

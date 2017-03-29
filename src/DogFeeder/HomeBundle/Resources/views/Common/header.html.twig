@@ -2,17 +2,19 @@
     <a class="navbar-brand" href="{{ path('home_home_index') }}">{{ 'project_name' | trans }}</a>
     <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-            <li><a href="#about">{{ 'about' | trans }}</a></li>
-            <li><a href="#contact">{{ 'contact' | trans }}</a></li>
             {% if app.user %}
+                <li><a href="{{ path('home_home_index') }}">{{ 'feed_history' | trans }}</a></li>
                 <li><a href="{{ path('feeder_feeder_list') }}">{{ 'feeders' | trans }}</a></li>
                 <li><a href="{{ path('config_config_index') }}">{{ 'config' | trans }}</a></li>
-                <li><a href="{{ path('user_user_edit', {'id': app.user.id}) }}">{{ app.user.username }}</a></li>
+                <li><a href="#about">{{ 'about' | trans }}</a></li>
+                <li><a href="{{ path('user_user_edit', {'id': app.user.id}) }}">{{ app.user.username }} {{ 'profile' | trans }}</a></li>
                 <li><a href="{{ path('user_security_logout') }}">{{ 'logout' | trans }}</a></li>
             {% else %}
+                <li><a href="#about">{{ 'about' | trans }}</a></li>
                 <li><a href="{{ path('user_security_login') }}">{{ 'login' | trans }}</a></li>
                 <li><a href="{{ path('user_registration_register') }}">{{ 'register' | trans }}</a></li>
             {% endif %}
+
         </ul>
     </div><!--/.nav-collapse -->
 </nav>

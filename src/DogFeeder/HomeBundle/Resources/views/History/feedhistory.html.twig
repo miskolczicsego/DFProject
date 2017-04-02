@@ -37,8 +37,23 @@
             }
         }) }}
     </div>
+    {% if isScheduleEnabled == '0' %}
+        <div class="col-xs-8 col-sm-6 col-md-2">
+            {{ form_widget(form.feed, {
+                'attr': {
+                    'class': 'btn btn-primary form-control'
+                }
+            }) }}
+        </div>
+    {% else %}
+        <div class="col-xs-8 col-sm-6 col-md-2">
+            <span>{{ 'scheduled_feed_mode' | trans }}</span>
+        </div>
+    {% endif %}
+
 </div>
-{{ form_end(form) }}
+
+{{ form_end(form , {'render_rest': false}) }}
 
 <script>
     function deleteHistory(el) {

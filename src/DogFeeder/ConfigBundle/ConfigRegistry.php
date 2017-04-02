@@ -43,7 +43,7 @@ class ConfigRegistry
 
     public function getValue($key, $userId)
     {
-        return $this->get($key, $userId)->getValue();
+        return $this->get($key, $userId )->getValue();
     }
 
     /**

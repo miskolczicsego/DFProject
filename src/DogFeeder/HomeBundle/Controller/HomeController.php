@@ -24,25 +24,20 @@ class HomeController extends Controller
 
     public function indexAction()
     {
-//        $schedule.xml = $this->getDoctrine()->getManager()->getRepository('FeederBundle:Feeder')->getFeederToSchedule(1);
-//        dump($schedule.xml);die;
-
-//        $schedule.xml = $this->getDoctrine()->getManager()->getRepository('ScheduleBundle:Schedule')->getFirstScheduleByDate();
-//        dump($schedule.xml);die;
-
-//        dump($this->get('security.token_storage')->getToken());die;
         if ($this->isFeederBelongsToUser()) {
             $manualFeedForm = $this->createForm($this->get('manualfeed.type'));
             $statFilterForm = $this->createForm($this->get('filter.type'));
             $userId = $this->getUser()->getId();
-            $historyLimit = $this->get('config')->get('history_limit', $userId)->getValue();
+            $config = $this->get('config');
+            $isScheduleEnabled = $config->getValue('schedule_feed', $userId);
+            $historyLimit = $config->getValue('history_limit', $userId);
             $feedHistoriesToUser = $this->getLastFeedhistoriesToCurrentUser($historyLimit);
-//            dump($feedHistoriesToUser);die;
             return $this->render("@Home/layout.html.twig",array(
-                'renderStatTable' => true,
+                'renderHistoryTable' => true,
                 'getLastFeedhistoriesByUserId' => $feedHistoriesToUser,
                 'form' => $manualFeedForm->createView(),
-                'filterForm' => $statFilterForm->createView()
+                'filterForm' => $statFilterForm->createView(),
+                'isScheduleEnabled' => $isScheduleEnabled
             ));
         } else {
             return $this->render("@Home/layout.html.twig",array(

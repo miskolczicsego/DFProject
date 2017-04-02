@@ -8,7 +8,7 @@
 
 namespace DogFeeder\ConfigBundle\Form\Type;
 
-use DogFeeder\ConfigBundle\Entity\Config;
+    use DogFeeder\ConfigBundle\Entity\Config;
 use DogFeeder\ConfigBundle\Form\Validator\Constraints\NumericStatLimit;
 use DogFeeder\UserBundle\Form\Validator\Constraints\NotBlank;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
@@ -31,7 +31,7 @@ class ConfigType extends AbstractType
     //TODO: itt valami még nem stimmel és emiatt nem megy a validációja ennek a mezőnek
     public function __construct(Translator $translator)
     {
-//        $this->translator = $translator;
+        $this->translator = $translator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -42,7 +42,7 @@ class ConfigType extends AbstractType
                 'required' => false,
                 'translation_domain' => 'messages',
                 'constraints' => array(
-                    new NumericStatLimit($this->translator),
+                    new NumericStatLimit(),
                     new NotBlank()
                 ),
             ))

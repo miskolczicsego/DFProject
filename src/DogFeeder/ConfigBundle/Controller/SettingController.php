@@ -23,7 +23,6 @@ class SettingController extends Controller
         $data['history_limit'] = $config->get('history_limit', $userId);
         $data['schedule_feed'] = $config->get('schedule_feed', $userId);
         $form = $this->createForm('DogFeeder\ConfigBundle\Form\Type\ConfigType');
-        dump($form);
         return $this->render('@Config/config/config.html.twig', array(
             'form' => $form->createView(),
             'data' => $data
@@ -38,23 +37,31 @@ class SettingController extends Controller
         $form->handleRequest($request);
         $data = $form->getData();
         $em = $this->getDoctrine()->getManager();
+        if ($form->isSubmitted() && $form->isValid()) {
+            foreach ($data as $key => $value) {
+                $setting = $this->getDoctrine()->getRepository('ConfigBundle:Config')->findOneBy(array(
+                    'key' => $key,
+                    'user' => $this->getUser()->getId()
+                ));
+                $setting->setValue($value);
+                $em->persist($setting);
+            }
+            $em->flush();
 
-        foreach ($data as $key => $value) {
+            $request->getSession()
+                ->getFlashBag()
+                ->add('success', $translator->trans('config_save_success'));
+            ;
 
-            $setting = $this->getDoctrine()->getRepository('ConfigBundle:Config')->findOneBy(array(
-                'key' => $key,
-                'user' => $this->getUser()->getId()
-            ));
-            $setting->setValue($value);
-            $em->persist($setting);
+            return $this->redirectToRoute('config_config_index');
         }
-        $em->flush();
-
-        $request->getSession()
-            ->getFlashBag()
-            ->add('success', $translator->trans('config_save_success'));
-        ;
-
-        return $this->redirectToRoute('config_config_index');
+        $userId = $this->getUser()->getId();
+        $config = $this->get('config');
+        $data['history_limit'] = $config->get('history_limit', $userId);
+        $data['schedule_feed'] = $config->get('schedule_feed', $userId);
+        return $this->render('@Config/config/config.html.twig', array(
+            'form' => $form->createView(),
+            'data' => $data
+        ));
     }
 }

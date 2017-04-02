@@ -19,3 +19,4 @@ feeder: Etető
 config: Beállítások
 feed_history: Eddigi etetéseim
 profile:  profilja
+scheduled_feed_mode: Automatikus etetés mód

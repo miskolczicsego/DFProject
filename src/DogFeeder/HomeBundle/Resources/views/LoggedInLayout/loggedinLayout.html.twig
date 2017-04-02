@@ -1,5 +1,8 @@
+{% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('bundles/home/css/starter.css') }}" />
+{% endblock %}
 <div class="container">
-    {% if renderStatTable %}
+    {% if renderHistoryTable %}
         {% include('@Home/History/feedhistory.html.twig') %}
     {% else %}
         <h2 class="no-feeder">

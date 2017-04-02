@@ -30,22 +30,26 @@ class ManualFeedType extends AbstractType
     {
         $builder
             ->add('quantity', ChoiceType::class, array(
+                'label' => 'quantity',
                 'choices' => array(
                     '200' => 200,
                     '100' => 100,
                     '50' => 50
-                )
+                ),
+                'translation_domain' => 'messages'
             ))
             ->add('feeder', EntityType::class, array(
                 'class' => 'DogFeeder\FeederBundle\Entity\Feeder',
+                'label' => 'feeder',
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('f')
                               ->where('f.user=:id')
                               ->setParameter('id', $this->securityToken->getToken()->getUser()->getId())
                         ;
-                }
+                },
+                'translation_domain' => 'messages'
             ))
-             ->add('save', SubmitType::class, array(
+             ->add('feed', SubmitType::class, array(
                 'attr' => array('class' => 'btn btn-default'),
                 'label' => 'feed',
                 'translation_domain' => 'messages'

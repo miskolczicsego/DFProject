@@ -1,4 +1,7 @@
 {% extends '@Home/layout.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/home/css/starter.css') }}" />
+{% endblock %}
 {% block title %} {{ 'feeder_edit_title' | trans }} {% endblock %}
 {% block body %}
     <div class="col-xs-6 col-sm-6 col-md-2">
@@ -20,10 +23,9 @@
     </div>
     {{ form_row(edit_form.save) }}
     {{ form_end(edit_form, {'render_rest': false}) }}
-{#{{ dump(scheduleToFeeder) }}#}
     {% if scheduleToFeeder is not null %}
         <h2>{{ 'scheduled_feed_table' | trans }}</h2>
-        <table class="table table-feeder table-hover">
+        <table class="table table-feeder-schedule table-hover">
             <thead>
             <th>{{ 'createdAt' | trans }}</th>
             {% if scheduleToFeeder.feedHour1 != null %}

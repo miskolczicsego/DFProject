@@ -33,5 +33,7 @@ class CounterResetCommand extends ContainerAwareCommand
         $schedule = $em->getRepository('ScheduleBundle:Schedule')->getFirstScheduleByDate();
         $schedule->setFeedCounter(0);
         $em->flush();
+
+        $output->writeln("Done");
     }
 }

@@ -75,7 +75,7 @@ class Schedule extends Timestampable
     private $userId;
 
     /**
-     * One Cart has One Customer.
+     * One Schedule has One Feeder.
      * @OneToOne(targetEntity="DogFeeder\FeederBundle\Entity\Feeder", inversedBy="schedule")
      * @JoinColumn(name="feeder_id", referencedColumnName="id")
      */

@@ -41,18 +41,4 @@ class FeedhistoryRepository extends EntityRepository
         )->setMaxResults($historyimit)->getArrayResult();
         return $query;
     }
-
-    public function findAllLimited($feederName, $historyLimit)
-    {
-        $em = $this->getEntityManager();
-        $query = $em->createQuery(
-            "SELECT fs.id, fs.createdAt, fs.description, fs.quantity, f.name
-             FROM FeederBundle:FeedHistory fs
-             JOIN FeederBundle:Feeder f
-             WHERE f.name = '" . $feederName . "'
-             AND fs.feeder = f.id
-             ORDER BY fs.createdAt DESC"
-        )->setMaxResults($historyLimit)->getArrayResult();
-        return $query;
-    }
 }

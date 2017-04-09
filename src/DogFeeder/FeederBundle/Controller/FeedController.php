@@ -28,19 +28,14 @@ class FeedController extends Controller
 
         $feedResponse = $this->feed();
 
-//        $messages = implode(', ', $feedResponse);
-
-
-        $this->addFeedStat($feeder, $feedResponse);
+        $this->addFeedHistroy($feeder, $feedResponse);
 
         return $this->redirectToRoute('home_home_index');
     }
 
     public function feed()
     {
-      $output = shell_exec("python /var/www/html/DFProject/src/DogFeeder/FeederBundle/Resources/files/feed.py");
-//        $output = shell_exec("python /var/www/html/DFProject/src/DogFeeder/FeederBundle/Resources/files/test.py");
-//        dump($output);die;
+        $output = shell_exec("python /var/www/html/DFProject/src/DogFeeder/FeederBundle/Resources/files/feed.py");
         return $output;
     }
 
@@ -53,7 +48,7 @@ class FeedController extends Controller
         return $data;
     }
 
-    public function addFeedStat($feeder, $feedResponse)
+    public function addFeedHistroy($feeder, $feedResponse)
     {
         $stat = new FeedHistory();
         $em = $this->getDoctrine()->getManager();

@@ -37,7 +37,6 @@ class FeederController extends Controller
                 $this->addSchedule($request);
             }
 
-
             $request->getSession()
                 ->getFlashBag()
                 ->add('success', $translator->trans('add_feeder_success'));
@@ -80,7 +79,7 @@ class FeederController extends Controller
         $scheduleToFeeder = $this->getDoctrine()->getRepository('ScheduleBundle:Schedule')->findOneBy(array(
             'feeder' => $feeder
         ));
-//    dump($scheduleToFeeder);die;
+
         $editForm->handleRequest($request);
         $translator = $this->container->get('translator');
         if ($editForm->isSubmitted()) {

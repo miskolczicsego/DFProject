@@ -41,7 +41,7 @@ class HomeController extends Controller
             ));
         } else {
             return $this->render("@Home/layout.html.twig",array(
-                'renderStatTable' => false,
+                'renderHistoryTable' => false,
             ));
         }
     }

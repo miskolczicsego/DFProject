@@ -13,10 +13,10 @@ try:
 	# There are many pins and most have up to 5 different functions,
 	# each with a default.  Check the pinout to find non-specialized
 	# "GPIO" pins.  We'll use P!-Pin_11 (using BOARD reference),
-	# which is the same as GPIO17 (Broadcom / BCM reference).
+	# which is the same as GPIO18 (Broadcom / BCM reference).
 	# We need our pin to use the GPIO digital output function, so we just
 	# tell it to designate this pin for OUTPUT.
-	pin_number = 11
+	pin_number = 12
 	setup = GPIO.setup(pin_number, GPIO.OUT)
 	print("setup")
 
@@ -67,6 +67,7 @@ try:
 	# close on all GPIO stuff.  There's only one copy of real hardware.
 	# We need to be polite and put it back the way we found it.
 	GPIO.cleanup()
+	print("OK")
 except IndentationError:
 	print "Feed did not happened. Some error occured in the code. Please contact with the administrator."
 	sys.exit(0)

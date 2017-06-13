@@ -109,7 +109,6 @@ class UserRegistrationType extends AbstractType
 
     }
 
-    // todo kideríteni ez miért kell bele
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(

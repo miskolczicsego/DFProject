@@ -53,7 +53,6 @@ class FeedController extends Controller
         $stat = new FeedHistory();
         $em = $this->getDoctrine()->getManager();
         $stat->setQuantity($feedResponse == self::SUCCESSFULL_FEED_RESPONESE ? $this->formData['quantity'] : 0);
-        //TODO: itt a visszatérő angol üzeneteket magyarra kéne fordítani
         $stat->setDescription($feedResponse);
         $stat->setFeeder($feeder);
         $em->persist($stat);

@@ -28,7 +28,6 @@ class ConfigType extends AbstractType
      */
     public $translator;
 
-    //TODO: itt valami még nem stimmel és emiatt nem megy a validációja ennek a mezőnek
     public function __construct(Translator $translator)
     {
         $this->translator = $translator;

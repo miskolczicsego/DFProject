@@ -31,7 +31,6 @@ class SettingController extends Controller
 
     public function saveAction(Request $request)
     {
-        // TODO variálni kicsit hogy ezt is a service csinálja
         $translator = $this->get('translator');
         $form = $this->createForm('DogFeeder\ConfigBundle\Form\Type\ConfigType');
         $form->handleRequest($request);

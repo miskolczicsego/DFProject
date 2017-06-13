@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class FeederController extends Controller
 {
+    public $error = false;
     public function addAction(Request $request)
     {
         $feederRegistrationForm = $this->createForm('DogFeeder\FeederBundle\Form\Type\FeederType');
@@ -25,7 +26,7 @@ class FeederController extends Controller
         $translator = $this->container->get('translator');
         $data = $feederRegistrationForm->getData();
         $isScheduledFeedEnabled = $config->getValue('schedule_feed', $this->getUser()->getId());
-        // TODO: valami validációt rakni kéne ide
+
         if($feederRegistrationForm->isSubmitted()) {
             $feeder = new Feeder();
             $em = $this->getDoctrine()->getManager();
@@ -53,6 +54,24 @@ class FeederController extends Controller
         return new Response($template);
     }
 
+    public function isFormValid($request)
+    {
+        $editFormData = $request->request->get('feeder');
+        foreach ($editFormData as $key => $value) {
+            if(($key == 'feed-hour-1' ||
+                $key == 'feed-hour-2' ||
+                $key == 'feed-hour-3' ||
+                $key == 'feed-hour-4' ||
+                $key == 'feed-hour-5' ) &&
+                !is_numeric($value))
+            {
+                $this->error = true;
+                return false;
+            }
+
+        }
+        return true;
+    }
     public function listAction()
     {
 
@@ -82,7 +101,7 @@ class FeederController extends Controller
 
         $editForm->handleRequest($request);
         $translator = $this->container->get('translator');
-        if ($editForm->isSubmitted()) {
+        if ($editForm->isSubmitted() && $this->isFormValid($request)) {
             if (!$this->isScheduleExists($feederId)) {
                 $this->addSchedule($request);
             } else {
@@ -95,6 +114,7 @@ class FeederController extends Controller
 
             return $this->redirectToRoute('feeder_feeder_list');
         }
+
         if (!$isScheduledFeedEnabled) {
             $request->getSession()
                 ->getFlashBag()
@@ -104,11 +124,18 @@ class FeederController extends Controller
                 ->getFlashBag()
                 ->add('information', $translator->trans('update_information'));
         }
+        if($this->error) {
+            $request->getSession()
+                ->getFlashBag()
+                ->add('error', $translator->trans('validation_error'));
+            $this->error = false;
+        }
         $template = $this->renderView('@Feeder/FeederList/feeder_edit.html.twig', array(
                 'edit_form' => $editForm->createView(),
                 'feederId' => $feederId,
                 'isScheduledFeedEnabled' => $isScheduledFeedEnabled,
-                'scheduleToFeeder' => $scheduleToFeeder
+                'scheduleToFeeder' => $scheduleToFeeder,
+                'error' => $this->error
             )
         );
         return new Response($template);
